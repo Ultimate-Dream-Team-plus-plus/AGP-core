@@ -24,3 +24,4 @@ Eclipse EE or equivalent is required to develop (or be good installing plugins)
     > If need to update an important constant, or add a new one, the template can be altered, but others must be warned afterwards
 4. Run the server and see the magnificient result !
 
+5. voilà !
