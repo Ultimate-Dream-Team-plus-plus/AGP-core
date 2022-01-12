@@ -23,3 +23,4 @@ Eclipse EE or equivalent is required to develop (or be good installing plugins)
     - Copy each file and remove the ".template" from the new files's names in order to add personal configurations (like DB creadentials or Lucene index path for example)
     > If need to update an important constant, or add a new one, the template can be altered, but others must be warned afterwards
 4. Run the server and see the magnificient result !
+
