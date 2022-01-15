@@ -40,6 +40,5 @@ public class Day {
 	public BigDecimal getPrice() {
 		return price;
 	}
-	
-	
+
 }
