@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel extends Place {
+
+	private double comfort;
 	private int nbPrestation;
 	private List<String> prestations = new ArrayList<>();
-	
+
 	public Hotel() {
 		super();
-		this.nbPrestation = 0;
 	}
 
 	public Hotel(String name, Position position, BigDecimal price, boolean isSeaSided, List<String> prestations) {
@@ -19,11 +20,6 @@ public class Hotel extends Place {
 		this.prestations = prestations;
 	}
 
-	public double computeConfort() {
-		//TODO Compute confort algorithm
-		return 0.0;
-	}
-	
 	public int getNbPrestation() {
 		return nbPrestation;
 	}
@@ -31,5 +27,8 @@ public class Hotel extends Place {
 	public List<String> getPrestations() {
 		return prestations;
 	}
-	
+
+	public double getComfort() {
+		return comfort;
+	}
 }

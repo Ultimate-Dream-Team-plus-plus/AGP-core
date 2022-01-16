@@ -2,7 +2,7 @@ package business.trip.places;
 
 import java.math.BigDecimal;
 
-public class Place {
+public abstract class Place {
 	private String name;
 	private Position position;
 	private BigDecimal price;

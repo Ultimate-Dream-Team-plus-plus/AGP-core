@@ -2,7 +2,7 @@ package business.trip.transports;
 
 import java.math.BigDecimal;
 
-public class Transport {
+public abstract class Transport {
 
 	private String name;
 	private BigDecimal pricePerKm;
@@ -20,9 +20,7 @@ public class Transport {
 		this.speed = speed;
 	}
 	
-	public boolean canCrossSea() {
-		return false;
-	}
+	public abstract boolean canCrossSea();
 
 	public String getName() {
 		return name;
