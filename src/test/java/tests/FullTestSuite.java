@@ -1,12 +1,12 @@
 package tests;
 
 import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
+import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-@RunWith(Runner.class)
+@RunWith(Suite.class)
 @SuiteClasses({
-	
+	PathFinderTest.class
 })
 public class FullTestSuite {
 
