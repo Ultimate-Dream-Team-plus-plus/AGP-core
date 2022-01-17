@@ -1,6 +1,7 @@
 package business.trip;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import business.trip.places.Place;
 import business.trip.transports.Transport;
@@ -13,27 +14,29 @@ public class Ride {
 	private double distance;
 	private double comfort;
 	
-	public Ride() {
+	public Ride(Place departure, Place arrival, Transport transport, BigDecimal price, double comfort) {
 		super();
-		this.departure = null;
-		this.arrival = null;
-		this.transport = null;
-		this.price = null;
-		this.distance = 0.0;
-		this.comfort = 0.0;
-	}
-	
-	public Ride(Place departure, Place arrival, Transport transport, BigDecimal price, double distance,
-			double comfort) {
-		super();
+		Objects.requireNonNull(price, "Objet 'price' ne doit pas être null");
+		Objects.requireNonNull(departure, "Objet 'departure' ne doit pas être null");
+		Objects.requireNonNull(arrival, "Objet 'arrival' ne doit pas être null");
+		Objects.requireNonNull(transport, "Objet 'transport' ne doit pas être null");
+
+		if(price.compareTo(new BigDecimal(0)) < 0) {
+			throw new IllegalArgumentException("Prix incorrect, valeur inférieure à 0.");
+		}
+		
 		this.departure = departure;
 		this.arrival = arrival;
 		this.transport = transport;
-		this.price = price;
-		this.distance = distance;
+		this.distance = departure.getPosition().computeDistance(arrival.getPosition());
 		this.comfort = comfort;
+		this.price = calculatePrice(this.distance, this.transport);
 	}
-
+	
+	private BigDecimal calculatePrice(double distance, Transport transport) {
+		return new BigDecimal(distance/transport.getPricePerKm().doubleValue());
+	}
+	
 	public Place getDeparture() {
 		return departure;
 	}

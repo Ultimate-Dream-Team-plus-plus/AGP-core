@@ -3,6 +3,7 @@ package business.trip.places;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Hotel extends Place {
 
@@ -10,14 +11,21 @@ public class Hotel extends Place {
 	private int nbPrestation;
 	private List<String> prestations = new ArrayList<>();
 
-	public Hotel() {
-		super();
-	}
-
-	public Hotel(String name, Position position, BigDecimal price, boolean isSeaSided, List<String> prestations) {
-		super(name, position, price, isSeaSided);
+	public Hotel(String name, Position position, BigDecimal price, List<String> prestations) throws IllegalArgumentException{
+		super(name, Objects.requireNonNull(position, "Objet 'position' ne doit pas être null"), 
+				Objects.requireNonNull(price, "Objet 'price' ne doit pas être null"), true, false);
+		
+		if(price.compareTo(new BigDecimal(0)) == -1) {
+			throw new IllegalArgumentException("Prix incorrect, valeur inférieure à 0.");
+		}
+		
+		if(name.isBlank()) {
+			throw new IllegalArgumentException("Nom d'hotel est vide.");
+		}
+		
 		this.nbPrestation = prestations.size();
 		this.prestations = prestations;
+		this.comfort = 0.0; // à calculer
 	}
 
 	public int getNbPrestation() {

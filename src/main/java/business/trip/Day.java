@@ -8,21 +8,13 @@ public class Day {
 	private int date;
 	private double comfort;
 	private BigDecimal price;
-	
-	public Day() {
-		super();
-		this.excursions = null;
-		this.date = 0;
-		this.comfort = 0.0;
-		this.price = null;
-	}
-	
-	public Day(List<Excursion> excursions, int date, double comfort, BigDecimal price) {
+
+	public Day(List<Excursion> excursions, int date) {
 		super();
 		this.excursions = excursions;
 		this.date = date;
-		this.comfort = comfort;
-		this.price = price;
+		this.comfort = excursions.stream().mapToDouble(Excursion::getComfort).sum();
+		this.price = excursions.stream().map(Excursion::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	
 	public List<Excursion> getExcursions() {

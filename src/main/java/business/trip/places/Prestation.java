@@ -3,10 +3,6 @@ package business.trip.places;
 public class Prestation {
 
 	private String name;
-	
-	public Prestation() {
-		this.name = null;
-	}
 
 	public Prestation(String name) {
 		this.name = name;

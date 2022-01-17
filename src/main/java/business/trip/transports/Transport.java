@@ -8,12 +8,6 @@ public abstract class Transport {
 	private BigDecimal pricePerKm;
 	private int speed;
 	
-	public Transport() {
-		name = null;
-		pricePerKm = null;
-		speed = 0;
-	}
-	
 	public Transport(String name, BigDecimal pricePerKm, int speed) {
 		this.name = name;
 		this.pricePerKm = pricePerKm;
