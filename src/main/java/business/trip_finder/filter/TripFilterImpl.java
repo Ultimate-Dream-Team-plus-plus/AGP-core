@@ -6,12 +6,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import business.trip.places.Hotel;
 import business.trip.places.Site;
 import business.trip_finder.repository.PlacesUnion;
 import business.util.PriceUtils;
 
 public class TripFilterImpl implements TripFilter {
+	
+	private static Logger LOGGER = LoggerFactory.getLogger(TripFilterImpl.class);
 
 	private static final int PERCENTAGE_COSTS_HOTEL = 70;
 	private static final int PERCENTAGE_COSTS_SITES = 20;
@@ -19,9 +24,10 @@ public class TripFilterImpl implements TripFilter {
 
 	@Override
 	public PlacesUnion filterPlaces(FilterParameters parameters, PlacesUnion placesUnion) {
+		LOGGER.info("Filter %d hotels and %d sites", placesUnion.getHotels().size(), placesUnion.getSites().size());
 		List<Hotel> hotels = findHotels(placesUnion, parameters);
 		List<Site> sites = findSites(placesUnion, parameters);
-		
+		LOGGER.info("Got %d hotels and %d sites at the end", hotels.size(), sites.size());
 		return new PlacesUnion(hotels, sites);
 	}
 
