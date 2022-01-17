@@ -11,12 +11,30 @@ public class Hotel extends Place {
 	private int nbPrestation;
 	private List<String> prestations;
 
-	public Hotel(String name, Position position, BigDecimal price, double comfort, List<String> prestations) throws IllegalArgumentException{
+	public Hotel(String name, Position position, BigDecimal price, List<String> prestations) throws IllegalArgumentException {
 		super(name, position, price, true, false);
-		
+
 		this.nbPrestation = prestations.size();
 		this.prestations = prestations;
-		this.comfort = comfort;
+		this.comfort = calculateComfort();
+	}
+
+	private double calculateComfort() {
+		// The comfort depends only on the number of prestations, and not the quality of
+		// them (for now)
+		double res;
+		if (nbPrestation > 6) {
+			res = 5.0;
+		} else if (nbPrestation > 3) {
+			res = 4.0;
+		} else if (nbPrestation > 2) {
+			res = 3.5;
+		} else if (nbPrestation > 1) {
+			res = 2.0;
+		} else {
+			res = 1.0;
+		}
+		return res;
 	}
 
 	public int getNbPrestation() {

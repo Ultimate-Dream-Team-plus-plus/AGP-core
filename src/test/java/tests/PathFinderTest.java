@@ -24,8 +24,8 @@ import business.trip_finder.path_finder.PlacesPath;
  */
 public class PathFinderTest {
 
-	private final Hotel hotel1 = new Hotel("hotel 1", new Position(-17.694747550059795, -149.30387262201194), BigDecimal.ONE, 3.0, List.of());
-	private final Hotel hotel2 = new Hotel("hotel 2", new Position(-17.612798763579153, -149.30250756193706), BigDecimal.ONE, 3.0, List.of());
+	private final Hotel hotel1 = new Hotel("hotel 1", new Position(-17.694747550059795, -149.30387262201194), BigDecimal.ONE, List.of());
+	private final Hotel hotel2 = new Hotel("hotel 2", new Position(-17.612798763579153, -149.30250756193706), BigDecimal.ONE, List.of());
 
 	// Not ordered, in order to see if the algorithm do something
 	// Right order : site 3 -> site 1 -> site 2
