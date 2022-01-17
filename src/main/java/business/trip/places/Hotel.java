@@ -11,7 +11,7 @@ public class Hotel extends Place {
 	private int nbPrestation;
 	private List<String> prestations = new ArrayList<>();
 
-	public Hotel(String name, Position position, BigDecimal price, List<String> prestations) throws IllegalArgumentException{
+	public Hotel(String name, Position position, BigDecimal price, float comfort, List<String> prestations) throws IllegalArgumentException{
 		super(name, Objects.requireNonNull(position, "Objet 'position' ne doit pas être null"), 
 				Objects.requireNonNull(price, "Objet 'price' ne doit pas être null"), true, false);
 		
@@ -25,7 +25,7 @@ public class Hotel extends Place {
 		
 		this.nbPrestation = prestations.size();
 		this.prestations = prestations;
-		this.comfort = 0.0; // à calculer
+		this.comfort = comfort;
 	}
 
 	public int getNbPrestation() {
