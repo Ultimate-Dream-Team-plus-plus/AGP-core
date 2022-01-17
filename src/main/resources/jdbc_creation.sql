@@ -1,8 +1,5 @@
 -- ============================================================================
 -- Script for creating the AGP DataBase tables - AGP-DBCreation.sql
--- Name : bd_agp
--- username : root
--- password :
 -- ============================================================================
 
 -- Droping all tables if exists
