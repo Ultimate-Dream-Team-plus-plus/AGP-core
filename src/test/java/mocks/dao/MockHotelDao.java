@@ -12,12 +12,12 @@ import dao.HotelDao;
 public class MockHotelDao implements HotelDao {
 
 	private final List<Hotel> hotels = List.of(
-			new Hotel("Hotel 1", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), true, List.of()),
-			new Hotel("Hotel 2", new Position(-16.6394, -148.2323), BigDecimal.valueOf(172.99), true, List.of()),
-			new Hotel("Hotel 3", new Position(-18.6394, -150.4229), BigDecimal.valueOf(30.0), true, List.of()),
-			new Hotel("Hotel 4", new Position(-17.0112, -149.1111), BigDecimal.valueOf(29.99), true, List.of()),
-			new Hotel("Hotel 5", new Position(-17.1111, -150.4229), BigDecimal.valueOf(333.33), true, List.of()),
-			new Hotel("Hotel 6", new Position(-17.3333, -148.4229), BigDecimal.valueOf(72.49), true, List.of()));
+			new Hotel("Hotel 1", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), 2, List.of()),
+			new Hotel("Hotel 2", new Position(-16.6394, -148.2323), BigDecimal.valueOf(172.99), 3, List.of()),
+			new Hotel("Hotel 3", new Position(-18.6394, -150.4229), BigDecimal.valueOf(30.0), 4, List.of()),
+			new Hotel("Hotel 4", new Position(-17.0112, -149.1111), BigDecimal.valueOf(29.99), 5, List.of()),
+			new Hotel("Hotel 5", new Position(-17.1111, -150.4229), BigDecimal.valueOf(333.33), 1, List.of()),
+			new Hotel("Hotel 6", new Position(-17.3333, -148.4229), BigDecimal.valueOf(72.49), 1, List.of()));
 
 	@Override
 	public Iterator<Hotel> findAll() {
