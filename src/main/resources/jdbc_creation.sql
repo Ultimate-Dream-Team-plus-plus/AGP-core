@@ -208,6 +208,61 @@ VALUES('bus',0.5,45,2);
 INSERT INTO transport(name, pricePerKm, speed, comfort)
 VALUES('boat',1.5,65.5,4);
 
+---------------------SERVICE-----------------------------
+
+INSERT INTO service(name) VALUES ('swimming pool');
+INSERT INTO service(name) VALUES ('gym');
+INSERT INTO service(name) VALUES ('sauna');
+INSERT INTO service(name) VALUES ('restaurant');
+INSERT INTO service(name) VALUES ('massage');
+INSERT INTO service(name) VALUES ('casino');
+INSERT INTO service(name) VALUES ('room service');
+
+----------------------RELHOTELSERVICE----------------------------
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','gym');
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','sauna');
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','massage');
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','casino');
+INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','room service');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('NINAMU PEARL RESORT TAHITI','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('NINAMU PEARL RESORT TAHITI','restaurant');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Punatea Village','restaurant');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Villa Mitirapa','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Villa Mitirapa','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Villa Mitirapa','room service');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Villa Mitirapa','sauna');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Villa Mitirapa','gym');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('InterContinental Resort Tahiti','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('InterContinental Resort Tahiti','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('InterContinental Resort Tahiti','room service');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('InterContinental Resort Tahiti','sauna');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('InterContinental Resort Tahiti','gym');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Hilton Hotel Tahiti','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Hilton Hotel Tahiti','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Hilton Hotel Tahiti','room service');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Hilton Hotel Tahiti','sauna');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Hilton Hotel Tahiti','gym');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Hilton Hotel Tahiti','massage');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Fare Arearea','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Fare Arearea','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Fare Arearea','massage');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Manava Suite Resort Tahiti','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Manava Suite Resort Tahiti','swimming pool');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Manava Suite Resort Tahiti','massage');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Manava Suite Resort Tahiti','room service');
+
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Rava Lodge','restaurant');
+INSERT INTO relhotelservice(nameHotel, nameService)VALUES('Rava Lodge','swimming pool');
+
 -- ============================================================================
 -- End Of File
 -- ============================================================================
