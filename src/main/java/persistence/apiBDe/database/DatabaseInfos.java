@@ -15,10 +15,14 @@ public class DatabaseInfos {
 	private String table;
 	private String keyColumn;
 	private String folder;
+	
 
 	// --- Methods ---
 
-	public DatabaseInfos(String table, String keyColumn, String folder) {
+	public DatabaseInfos() {
+	}
+	
+	public void setValues(String table, String keyColumn, String folder) {
 		this.table = table;
 		this.keyColumn = keyColumn;
 		this.folder = folder;
@@ -47,5 +51,10 @@ public class DatabaseInfos {
 	public void setFolder(String folder) {
 		this.folder = folder;
 	}
+	
+	public String toString() {
+		return table +" " + keyColumn + " " + folder;
+	}
+
 
 }

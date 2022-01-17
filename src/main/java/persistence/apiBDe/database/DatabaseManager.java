@@ -19,7 +19,7 @@ public interface DatabaseManager {
 	 * @param folder      : String
 	 * @return Boolean : True if method worked, False if not
 	 */
-	public boolean manageDB(String table, String indexColumn, String folder);
+	public void manageDB(String table, String indexColumn, String folder);
 
 	/**
 	 * Add a text to a specific value of the keyColumn
