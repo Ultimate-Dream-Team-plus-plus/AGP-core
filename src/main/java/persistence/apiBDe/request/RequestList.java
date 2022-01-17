@@ -1,5 +1,6 @@
 package persistence.apiBDe.request;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,6 +19,10 @@ public class RequestList<E> implements Iterable<E> {
 
 	public RequestList(List<E> values) {
 		this.list = values;
+	}
+	
+	public RequestList() {
+		this.list = new ArrayList<E>();
 	}
 	
 	class RequestIterator<E> implements Iterator<E>{
@@ -42,10 +47,13 @@ public class RequestList<E> implements Iterable<E> {
 		
 	}
 	
+	public void add(E e) {
+		list.add( e);
+	}
 
 	@Override
 	public Iterator<E> iterator() {
-		return new RequestIterator();
+		return new RequestIterator();	
 	}
 
 }

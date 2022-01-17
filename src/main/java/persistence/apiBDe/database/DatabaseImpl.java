@@ -26,7 +26,7 @@ public class DatabaseImpl implements DatabaseManager {
 
 	// --- Variable ---
 
-	private DatabaseInfos infos;
+	private DatabaseInfos infos = DatabaseInfos.getInstance();
 	private LuceneConfig config = SpringIoC.getBean(LuceneConfig.class);
 
 	// --- Methods ---
@@ -38,7 +38,6 @@ public class DatabaseImpl implements DatabaseManager {
 
 	@Override
 	public void manageDB(String table, String indexColumn, String folder) {
-		infos = new DatabaseInfos();
 		infos.setValues(table, indexColumn, folder);
 	}
 

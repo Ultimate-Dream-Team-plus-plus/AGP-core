@@ -16,10 +16,11 @@ public class DatabaseInfos {
 	private String keyColumn;
 	private String folder;
 	
+	private static DatabaseInfos instance = new DatabaseInfos();
 
 	// --- Methods ---
 
-	public DatabaseInfos() {
+	private DatabaseInfos() {
 	}
 	
 	public void setValues(String table, String keyColumn, String folder) {
@@ -54,6 +55,10 @@ public class DatabaseInfos {
 	
 	public String toString() {
 		return table +" " + keyColumn + " " + folder;
+	}
+	
+	public static DatabaseInfos getInstance() {
+		return instance;
 	}
 
 

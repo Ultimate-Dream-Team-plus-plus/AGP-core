@@ -15,7 +15,7 @@ public class APITest {
 	
 	@Test
 	public void manageDBTest() {
-		DatabaseInfos infos = new DatabaseInfos();
+		DatabaseInfos infos = DatabaseInfos.getInstance();
 		String table = "A";
 		String indexcolumn = "B";
 		String folder = "C";

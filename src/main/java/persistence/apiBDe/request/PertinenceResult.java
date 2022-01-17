@@ -4,33 +4,43 @@ package persistence.apiBDe.request;
  * Association with an element and the pertience score
  * 
  * @author Aldric Vitali Silvestre
- * @param <E> the type of the object contained in.
  */
-public class PertinenceResult<E> {
+public class PertinenceResult{
+	
+	// --- Variables ---
+	
+	private float score;
+	private String name;
 
-	private E result;
 	
-	private double score;
+	// --- Methods ---
 	
-	public PertinenceResult(E result, double score) {
-		super();
-		this.result = result;
+	public PertinenceResult(float score, String name) {
 		this.score = score;
+		this.name = name;
 	}
 
-	public E getResult() {
-		return result;
-	}
 
-	public void setResult(E result) {
-		this.result = result;
-	}
-
-	public double getScore() {
+	public float getScore() {
 		return score;
 	}
 
-	public void setScore(double score) {
+
+	public void setScore(float score) {
 		this.score = score;
 	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+	
+	
 }
