@@ -6,12 +6,12 @@ import java.util.List;
 public class Trip {
 	private List<Day> days;
 	private BigDecimal price;
-	private double confort;
+	private double comfort;
 	
 	public Trip(List<Day> days) {
 		this.days = days;
 		this.price = computePrice(days);
-		this.confort = computeConfort(days);
+		this.comfort = computeComfort(days);
 	}
 	
 	public BigDecimal getPrice() {
@@ -22,15 +22,15 @@ public class Trip {
 		return days;
 	}
 	
-	public double getConfort() {
-		return confort;
+	public double getComfort() {
+		return comfort;
 	}
 
 	private BigDecimal computePrice(List<Day> days) {
 		return days.stream().map(Day::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	
-	private double computeConfort(List<Day> days) {
+	private double computeComfort(List<Day> days) {
 		return days.stream().mapToDouble(Day::getComfort).sum() / days.size();
 	}
 
