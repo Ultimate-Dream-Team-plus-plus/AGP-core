@@ -1,4 +1,4 @@
-package persistence.request;
+package persistence.apiBDe.request;
 
 /**
  * Association with an element and the pertience score

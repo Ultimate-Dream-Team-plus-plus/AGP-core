@@ -1,4 +1,4 @@
-package persistence.database;
+package persistence.apiBDe.database;
 
 public class DatabaseImpl implements DatabaseManager{
 

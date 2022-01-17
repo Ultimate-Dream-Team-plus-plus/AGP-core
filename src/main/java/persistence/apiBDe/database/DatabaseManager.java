@@ -1,4 +1,4 @@
-package persistence.database;
+package persistence.apiBDe.database;
 
 /**
  * This interface allow to communicate with the EDB(Extended Database) in order

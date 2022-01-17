@@ -1,4 +1,4 @@
-package persistence.database;
+package persistence.apiBDe.database;
 
 /**
  * This class will store all the elements describing the EDB (Extended

@@ -1,4 +1,4 @@
-package persistence.request;
+package persistence.apiBDe.request;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ class JdbcConnection {
 	private static String base = "bank6jdbc";
 	private static String user = "root";
 	private static String password = "";
-	private static String url = "jdbc:mysql://" + host + "/" + base;
+	private static String url = "jdbc:mysql://" + host + "/" + base + "?characterEncoding=utf8&useSSL=false&useUnicode=true";
 
 	/**
 	 * Lazy singleton instance.
