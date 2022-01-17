@@ -15,7 +15,7 @@ public class TestBordel {
 		
 		DatabaseImpl impl = new DatabaseImpl();
 		impl.manageDB(table, indexcolumn, folder);
-		impl.addText("hfuezihfi truc a a a a a a a a alors a oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur");
+		impl.addText("hfuezihfi truc a a a truc a a a a alors a oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur");
 		impl.addText("hfuezihfi truc alors a a a a a a a a a oezpahfuipaezhfuiz alors aephfuopza ehfuo ipaegfp", "valeur1");
 		impl.addText("hfuezihfi truc a a a a a a a a a a oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur2");
 		impl.addText("hfuezihfi truc a a a a a a a a a a oezp alors ahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur3");
@@ -28,7 +28,7 @@ public class TestBordel {
 		
 		RequestImpl<PertinenceResult> req = new RequestImpl<PertinenceResult>();
 		
-		Iterator<PertinenceResult> iter =  req.textRequest("test");
+		Iterator<PertinenceResult> iter =  req.textRequest("truc");
 		while(iter.hasNext()) {
 			PertinenceResult res = iter.next();
 			System.out.println(res.getName() + " --> " + res.getScore());

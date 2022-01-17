@@ -18,6 +18,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.aspectj.util.FileUtil;
 
 import business.spring.SpringIoC;
 import persistence.config.LuceneConfig;
@@ -64,6 +65,11 @@ public class DatabaseImpl implements DatabaseManager {
 			Analyzer analyser = new StandardAnalyzer();
 
 			Path indexPath = Path.of(config.getPathIndex()+"/" + infos.getFolder() + "index");
+			File f = new File(indexPath.toString());
+			if(f.exists()) {
+				for(File elt: f.listFiles())  
+				        elt.delete();
+			}
 			Directory index = FSDirectory.open(indexPath);
 
 			IndexWriterConfig config = new IndexWriterConfig(analyser);
