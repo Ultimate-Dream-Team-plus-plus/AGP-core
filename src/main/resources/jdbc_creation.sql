@@ -66,7 +66,7 @@ CREATE TABLE RelHotelService
 -- Data insertion
 -- ============================================================================
 
----------------------SITE-----------------------------
+-- ---------------------SITE-----------------------------
 
 INSERT INTO site (name, position, price, isSeaSided, isIntoSea, type) 
 VALUES ('Faarumai Waterfalls',ST_GeomFromText('POINT(-17.534299087468145 -149.39944449589822)'),0,false,true,'landscape');
@@ -161,7 +161,7 @@ VALUES ('Beach of Rava Lodge',ST_GeomFromText('POINT(-17.615449256223137 -149.60
 INSERT INTO site (name, position, price, isSeaSided, isIntoSea, type) 
 VALUES ('Beach of Kohutahia Lodge',ST_GeomFromText('POINT(-17.54502899003684 -149.5944300831791)'),0,true,false,'beach');
 
----------------------HOTEL-----------------------------
+-- ---------------------HOTEL-----------------------------
 INSERT INTO hotel(name,position,price,nbServices) 
 VALUES ('Pension Te Miti',ST_GeomFromText('POINT(-17.639899287522354 -149.58578423804053)'),50,0);
 
@@ -195,7 +195,7 @@ VALUES ('Rava Lodge',ST_GeomFromText('POINT(-17.615449256223137 -149.60705685915
 INSERT INTO hotel(name,position,price,nbServices) 
 VALUES ('Kohutahia Lodge',ST_GeomFromText('POINT(-17.54502899003684 -149.5944300831791)'),65,0);
 
----------------------TRANSPORT-----------------------------
+-- ---------------------TRANSPORT-----------------------------
 INSERT INTO transport(name, pricePerKm, speed, comfort)
 VALUES('on foot',0,6.4,0);
 
@@ -205,7 +205,7 @@ VALUES('bus',0.5,45,2);
 INSERT INTO transport(name, pricePerKm, speed, comfort)
 VALUES('boat',1.5,65.5,4);
 
----------------------SERVICE-----------------------------
+-- ---------------------SERVICE-----------------------------
 
 INSERT INTO service(name) VALUES ('swimming pool');
 INSERT INTO service(name) VALUES ('gym');
@@ -215,7 +215,7 @@ INSERT INTO service(name) VALUES ('massage');
 INSERT INTO service(name) VALUES ('casino');
 INSERT INTO service(name) VALUES ('room service');
 
-----------------------RELHOTELSERVICE----------------------------
+-- ----------------------RELHOTELSERVICE----------------------------
 INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','swimming pool');
 INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','gym');
 INSERT INTO relhotelservice(nameHotel, nameService) VALUES ('The Tahiti by Pearl Resorts','sauna');
