@@ -1,6 +1,7 @@
 package business.trip.places;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public abstract class Place {
 	private String name;
@@ -12,10 +13,18 @@ public abstract class Place {
 	public Place(String name, Position position, BigDecimal price, boolean isSeaSided, boolean isIntoSea) {
 		super();
 		this.name = name;
-		this.position = position;
-		this.price = price;
+		this.position = Objects.requireNonNull(position, "Object 'position' cannot be null");
+		this.price = Objects.requireNonNull(price, "Object 'price' cannot be null");
 		this.isSeaSided = isSeaSided;
 		this.isIntoSea = isIntoSea;
+		
+		if(name.isBlank()) {
+			throw new IllegalArgumentException("Empty place name not allowed");
+		}
+		
+		if(price.signum() == -1) {
+			throw new IllegalArgumentException("Price cannot be negative");
+		}
 	}
 	
 	public String getName() {

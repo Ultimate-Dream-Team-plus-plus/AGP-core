@@ -13,10 +13,14 @@ public class Day {
 		super();
 		this.excursions = excursions;
 		this.date = date;
-		this.comfort = excursions.stream().mapToDouble(Excursion::getComfort).sum();
-		this.price = excursions.stream().map(Excursion::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+		this.comfort = excursions.stream()
+				.mapToDouble(Excursion::getComfort)
+				.sum();
+		this.price = excursions.stream()
+				.map(Excursion::getPrice)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
-	
+
 	public List<Excursion> getExcursions() {
 		return excursions;
 	}

@@ -14,6 +14,19 @@ public class Trip {
 		this.comfort = computeComfort(days);
 	}
 	
+	private BigDecimal computePrice(List<Day> days) {
+		return days.stream()
+				.map(Day::getPrice)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+	
+	private double computeComfort(List<Day> days) {
+		return days.stream()
+				.mapToDouble(Day::getComfort)
+				.average()
+				.orElseThrow(() -> new RuntimeException("No Day in trip, should never happen..."));
+	}
+	
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -25,13 +38,4 @@ public class Trip {
 	public double getComfort() {
 		return comfort;
 	}
-
-	private BigDecimal computePrice(List<Day> days) {
-		return days.stream().map(Day::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-	}
-	
-	private double computeComfort(List<Day> days) {
-		return days.stream().mapToDouble(Day::getComfort).sum() / days.size();
-	}
-
 }

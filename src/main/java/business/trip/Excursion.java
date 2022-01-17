@@ -13,43 +13,42 @@ public class Excursion {
 	private BigDecimal price;
 	private double comfort;
 	private double totalDistance;
-	
-	public Excursion(Hotel departureHotel, Hotel arrivalHotel, List<Ride> rides, BigDecimal price, double comfort,
-			double totalDistance) throws IllegalArgumentException{
+
+	public Excursion(Hotel departureHotel, Hotel arrivalHotel, List<Ride> rides) throws IllegalArgumentException {
 		super();
-		Objects.requireNonNull(departureHotel, "Objet 'departureHotel' ne doit pas être vide.");
-		Objects.requireNonNull(arrivalHotel, "Objet 'arrivalHotel' ne doit pas être vide.");
-		Objects.requireNonNull(price, "Objet 'price' ne doit pas être vide.");
-		if(departureHotel.getName() == arrivalHotel.getName()) {
-			Objects.requireNonNull(rides, "Objet 'rides' ne doit pas être vide.");
-			if(rides.isEmpty()) {
-				throw new IllegalArgumentException("Liste de 'rides' vide pour une excursion entre deux même hôtels, impossible.");
+		Objects.requireNonNull(departureHotel, "Object 'departureHotel'cannot be null.");
+		Objects.requireNonNull(arrivalHotel, "Object 'arrivalHotel'cannot be null.");
+		Objects.requireNonNull(price, "Object 'price'cannot be null.");
+		if (departureHotel.getName().equals(arrivalHotel.getName())) {
+			Objects.requireNonNull(rides, "Object 'rides'cannot be null.");
+			if (rides.isEmpty()) {
+				throw new IllegalArgumentException("Cannot have an excursion ending in the same hotel without sites between");
 			}
 		}
 		this.departureHotel = departureHotel;
 		this.arrivalHotel = arrivalHotel;
 		this.rides = rides;
-		this.price = price;
-		this.comfort = rides.stream().mapToDouble(Ride::getComfort).sum();
-		this.totalDistance = rides.stream().mapToDouble(Ride::getDistance).sum();
+		this.price = calculatePrice();
+
+		this.comfort = rides.stream()
+				.mapToDouble(Ride::getComfort)
+				.average()
+				.orElseThrow(() -> new IllegalArgumentException("No ride to average from, should never happen..."));
+
+		this.totalDistance = rides.stream()
+				.mapToDouble(Ride::getDistance)
+				.sum();
 	}
-	
-	/*private double calculateTotalDistance(List<Ride> rides) {
-		double totalDistance = 0.0;
-		for(Ride ride : rides) {
-			totalDistance += ride.getDistance();
-		}
-		return totalDistance;
-	}*/
-	
-	/*private double calculateComfort(List<Ride> rides) {
-		double comfort = 0.0;
-		for(Ride ride: rides) {
-			comfort += ride.getComfort();
-		}
-		return comfort / rides.size();
-	}*/
-	
+
+	private BigDecimal calculatePrice() {
+		// The first hotel is never taken account in Rides, so we must count it here
+		BigDecimal ridesPrice = rides.stream()
+				.map(Ride::getPrice)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+		BigDecimal departurePrice = departureHotel.getPrice();
+		return ridesPrice.add(departurePrice);
+	}
+
 	public Hotel getDepartureHotel() {
 		return departureHotel;
 	}
@@ -74,5 +73,4 @@ public class Excursion {
 		return totalDistance;
 	}
 
-	
 }
