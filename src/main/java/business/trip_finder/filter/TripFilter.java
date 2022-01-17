@@ -1,6 +1,5 @@
 package business.trip_finder.filter;
 
-import business.trip_finder.TripParameters;
 import business.trip_finder.repository.PlacesUnion;
 
 public interface TripFilter {
@@ -16,5 +15,5 @@ public interface TripFilter {
 	 * @return A new instance of PlacesUnion with only satisfying places for the
 	 *         user.
 	 */
-	PlacesUnion filterPlaces(TripParameters parameters, PlacesUnion placesUnion);
+	PlacesUnion filterPlaces(FilterParameters parameters, PlacesUnion placesUnion);
 }
