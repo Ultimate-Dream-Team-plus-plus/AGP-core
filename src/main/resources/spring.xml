@@ -13,13 +13,17 @@
 			<value>application.properties</value>
 		</property>
 	</bean>
+	
+	<bean id="luceneConfig" class="persistence.config.LuceneConfig">
+		<property name="pathIndex" value="${lucene.index.path}"/>
+	</bean>
 
-	<bean id="jdbcInformations" class="persistence.jdbc.JdbcInformations">
+	<!--bean id="jdbcInformations" class="persistence.jdbc.JdbcInformations">
 		<property name="databaseName" value="${jdbc.name}" />
 		<property name="port" value="${jdbc.port}" />
 		<property name="host" value="${jdbc.host}" />
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
-	</bean>
+	</bean>-->
 
 </beans>
