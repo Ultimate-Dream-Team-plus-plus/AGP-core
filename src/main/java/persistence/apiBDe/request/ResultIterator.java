@@ -35,7 +35,7 @@ public class ResultIterator implements Iterator<Map<String, Object>> {
 
 	private void goToNext() {
 		try {
-			this.hasNext = this.resultSet.next();
+			this.hasNext = this.resultSet.getRow()>0;
 		} catch (SQLException e) {
 			this.hasNext = false;
 		}
