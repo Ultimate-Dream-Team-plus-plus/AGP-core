@@ -25,7 +25,6 @@ public class GlobalStrategy implements OrderingStrategy{
 		double maxPrice = trips.stream().max(Comparator.comparing(Trip::getPrice)).get().getPrice().doubleValue();
 
 		for(Trip trip: trips) {
-			System.out.println(index + " : " + trip.toString());
 			price = trip.getPrice().doubleValue();
 			comfort = trip.getComfort();
 			rate = (price / maxPrice) * 0.5 + (comfort / 5) * 0.5;
