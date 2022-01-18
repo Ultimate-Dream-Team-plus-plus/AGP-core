@@ -11,28 +11,28 @@
 		<legend>Research settings</legend>
 		<h:form>
 			Key words:
-                <h:inputText value="" size="60" />
+                <h:inputText value="#{entryBean.keywords}" size="60" />
 			<br />
                  Price: Mininmum:
-                <h:inputText value=""  size="5"/>
+                <h:inputText value="#{entryBean.minPrice}"  size="5"/>
                 Maximum:
-                <h:inputText value=""  size="5"/>
+                <h:inputText value="#{entryBean.maxPrice}"  size="5"/>
             <br />
                 Comfort:
-                <h:inputText value=""  size="2"/>
+                <h:inputText value="#{entryBean.comfort}"  size="2"/>
             <br />
-                Days:
-                <h:inputText value=""  size="2"/>
+                Number of days:
+                <h:inputText value="#{entryBean.nbDays}"  size="2"/>
 			<br />
 		Sort by:
-		<h:selectOneMenu value="">
+		<h:selectOneMenu value="#{entryBean.filterBy}">
 			<f:selectItem itemValue="increasingPrice" itemlabel="Increasing Price" />
 			<f:selectItem itemValue="decreasingPrice" itemlabel="Decreasing Price" />
 			<f:selectItem itemValue="increasingComfort" itemlabel="Increasing Comfort" />
 			<f:selectItem itemValue="decreasingComfort" itemlabel="Decreasing Comfort" />		
 		</h:selectOneMenu>
 		<br />
-				<h:commandButton value="Search" action="result" />
+				<h:commandButton value="Search" action="#{entryBean.search}" />
 		</h:form>
 	</fieldset>
 </h:body>
