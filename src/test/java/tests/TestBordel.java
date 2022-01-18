@@ -1,10 +1,13 @@
 package tests;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import persistence.apiBDe.database.DatabaseImpl;
 import persistence.apiBDe.request.PertinenceResult;
 import persistence.apiBDe.request.RequestImpl;
+import persistence.apiBDe.request.ResultIterator;
 
 public class TestBordel {
 
@@ -36,6 +39,14 @@ public class TestBordel {
 			System.out.println(res.getName() + " --> " + res.getScore());
 		}
 
+//		ResultIterator resIter =  req.sqlRequest("SELECT count(*) AS co FROM hotel");
+		ResultIterator resIter =  req.sqlRequest("SELECT name FROM hotel");
+		Map<String, Object> res = new HashMap<String, Object>();
+		System.out.println(resIter.hasNext());
+		while(resIter.hasNext()) {
+			res = resIter.next();
+//			System.out.println(res.get("co"));
+			System.out.println(res.get("name"));
+		}
 	}
-
 }

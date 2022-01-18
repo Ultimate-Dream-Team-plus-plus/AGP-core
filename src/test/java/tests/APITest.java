@@ -52,6 +52,23 @@ public class APITest {
 		}
 	}
 	
-	
+
+/*	public void sqlRequestTest() {
+		String table = "A";
+		String indexcolumn = "B";
+		String folder = "Test";
+		
+		DatabaseImpl impl = new DatabaseImpl();
+		impl.manageDB(table, indexcolumn, folder);
+		impl.createIndex();
+		
+		RequestImpl<PertinenceResult> req = new RequestImpl<PertinenceResult>();
+		
+		ResultIterator resIter =  req.sqlRequest("SELECT * FROM A");
+		while(resIter.hasNext()) {
+			PertinenceResult res = (PertinenceResult)resIter.next();
+			System.out.println(res.getName() + " --> " + res.getScore());
+		}
+	}*/
 
 }
