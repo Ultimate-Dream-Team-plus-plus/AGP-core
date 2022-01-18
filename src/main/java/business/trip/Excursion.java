@@ -18,7 +18,6 @@ public class Excursion {
 		super();
 		Objects.requireNonNull(departureHotel, "Object 'departureHotel'cannot be null.");
 		Objects.requireNonNull(arrivalHotel, "Object 'arrivalHotel'cannot be null.");
-		Objects.requireNonNull(price, "Object 'price'cannot be null.");
 		if (departureHotel.getName().equals(arrivalHotel.getName())) {
 			Objects.requireNonNull(rides, "Object 'rides'cannot be null.");
 			if (rides.isEmpty()) {
