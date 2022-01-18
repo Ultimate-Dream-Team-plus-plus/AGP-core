@@ -3,6 +3,9 @@ package persistence.apiBDe.request;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +24,6 @@ import org.apache.lucene.store.FSDirectory;
 
 import business.spring.SpringIoC;
 import persistence.apiBDe.database.DatabaseInfos;
-import persistence.apiBDe.request.ResultIterator.RequestIterator;
 import persistence.config.LuceneConfig;
 
 /**
@@ -74,6 +76,21 @@ public class RequestImpl<E> implements RequestManager<E> {
 		}
 
 		return (Iterator<E>) values.iterator();
+	}
+	
+	public Iterator<E> sqlRequest(String request) {
+		ResultSet results = null;
+		try {		    
+			Connection connection = JdbcConnection.getConnection();
+			
+			java.sql.Statement stmt = connection.createStatement();
+			results = stmt.executeQuery(request);		
+			stmt.close();
+			
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+		return (Iterator<E>) results;
 	}
 
 }
