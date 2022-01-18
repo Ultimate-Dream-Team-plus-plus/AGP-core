@@ -5,7 +5,7 @@
 -- Droping all tables if exists
 DROP TABLE IF EXISTS transport;
 DROP TABLE IF EXISTS site;
-DROP TABLE IF EXISTS relHotelService;
+DROP TABLE IF EXISTS relhotelservice;
 DROP TABLE IF EXISTS hotel;
 DROP TABLE IF EXISTS service;
 
@@ -54,12 +54,12 @@ CREATE TABLE service
 
 -- Creating RelHotelService table relation between Hotel and Service 
 -- tables
-CREATE TABLE relHotelService
+CREATE TABLE relhotelservice
 (
   nameHotel VARCHAR(100) NOT NULL,
   nameService VARCHAR(50) NOT NULL,
-  FOREIGN KEY(nameHotel) REFERENCES Hotel(name) ON DELETE CASCADE,
-  FOREIGN KEY(nameService) REFERENCES Service(name) ON DELETE CASCADE
+  FOREIGN KEY(nameHotel) REFERENCES hotel(name) ON DELETE CASCADE,
+  FOREIGN KEY(nameService) REFERENCES service(name) ON DELETE CASCADE
 );
 
 -- ============================================================================
