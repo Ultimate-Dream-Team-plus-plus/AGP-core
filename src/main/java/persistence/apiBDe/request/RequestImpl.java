@@ -6,8 +6,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -21,9 +24,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-import business.spring.SpringIoC;
 import persistence.apiBDe.database.DatabaseInfos;
-import persistence.config.LuceneConfig;
 
 /**
  * 
@@ -91,6 +92,65 @@ public class RequestImpl<E> implements RequestManager<E> {
 			System.err.println(se.getMessage());
 		}
 		return null;
+	}
+	
+	private String addKeyRequest(String request) {
+		List<String> requestSplit = Arrays.asList(request.split("\\ "));
+		String word="";
+		int i=0;
+		while (!requestSplit.get(i).equals("FROM")) {
+			if(requestSplit.get(i).equals(infos.getKeyColumn())) {
+				return request;
+			}
+			i++;
+        }
+		//Ajouter la clef dans la partie select
+		requestSplit.add(1,infos.getKeyColumn());
+		
+		return String.join(" ",requestSplit);
+	}
+	
+	public ArrayList<Map<String,Object>> joinRequest(String request) {
+		
+		
+		//Récupération des mots clef
+		String separatorSqlText="with";
+		int posWith=request.indexOf(separatorSqlText);
+		int endWith=posWith+separatorSqlText.length()-1;
+		
+		//Récupération du résultat de la requete sql
+		String sqlPart=request.substring(0,posWith);
+		ResultIterator iterSql=sqlRequest(sqlPart);
+		
+		//Récupération du résultat de la requete textuel
+		String keyWords=request.substring(endWith);
+		Iterator<PertinenceResult> iterText=(Iterator<PertinenceResult>) textRequest(keyWords);
+		ArrayList<PertinenceResult> resultsList= new ArrayList<PertinenceResult>();
+		
+		//On stocke le résultat dans une liste car tient en mémoire
+		while(iterText.hasNext()) {
+			PertinenceResult res = iterText.next();
+			resultsList.add(res);
+		}
+		//Liste ou sera stockée les résultats de la requete mixte
+		ArrayList<Map<String,Object>>mixedQueryResult= new ArrayList<Map<String,Object>>();
+		
+		//idée parcours iterSql et on vérifie si la clef est aussi dans la liste des résultats de la partie textuel
+		Map<String, Object> resSql = new HashMap<String, Object>();
+		while(iterSql.hasNext()) {
+			resSql = iterSql.next();
+			
+			//Parcours du tableau 
+			for (PertinenceResult pertinenceResult : resultsList )
+		      {
+		         if(pertinenceResult.getName().equals(resSql.get(infos.getKeyColumn()))) {
+		        	 mixedQueryResult.add(resSql);
+		         }
+		      }
+		}	
+		return mixedQueryResult;
+		//Jointure
+		
 	}
 
 }
