@@ -18,7 +18,6 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.aspectj.util.FileUtil;
 
 import business.spring.SpringIoC;
 import persistence.config.LuceneConfig;
@@ -28,7 +27,6 @@ public class DatabaseImpl implements DatabaseManager {
 	// --- Variable ---
 
 	private DatabaseInfos infos = DatabaseInfos.getInstance();
-	private LuceneConfig config = SpringIoC.getBean(LuceneConfig.class);
 
 	// --- Methods ---
 	
@@ -41,6 +39,8 @@ public class DatabaseImpl implements DatabaseManager {
 	public void manageDB(String table, String indexColumn, String folder) {
 		infos.setValues(table, indexColumn, folder);
 	}
+	
+	
 
 	@Override
 	public boolean addText(String text, String keyvalue) {
@@ -49,7 +49,7 @@ public class DatabaseImpl implements DatabaseManager {
 			if(!directory.exists()) {
 				directory.mkdir();
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(config.getPathIndex()+"/"+infos.getFolder()+"/"+keyvalue+".txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(infos.getPath()+"/"+infos.getFolder()+"/"+keyvalue+".txt"));
 			writer.write(text);
 			writer.close();
 		} catch (IOException e) {
@@ -64,7 +64,7 @@ public class DatabaseImpl implements DatabaseManager {
 		try {
 			Analyzer analyser = new StandardAnalyzer();
 
-			Path indexPath = Path.of(config.getPathIndex()+"/" + infos.getFolder() + "index");
+			Path indexPath = Path.of(infos.getPath()+"/" + infos.getFolder() + "index");
 			File f = new File(indexPath.toString());
 			if(f.exists()) {
 				for(File elt: f.listFiles())  
@@ -79,7 +79,7 @@ public class DatabaseImpl implements DatabaseManager {
 			File[] listOfFiles = folder.listFiles();
 
 			for (File textFile : listOfFiles) {
-				File file = new File("./" + infos.getFolder() + "/" + textFile.getName());
+				File file = new File(infos.getPath()+"/" + infos.getFolder() + "/" + textFile.getName());
 
 				Document document = new Document();
 				document.add(new Field("name", file.getName(), TextField.TYPE_STORED));
@@ -102,6 +102,12 @@ public class DatabaseImpl implements DatabaseManager {
 
 	public void setInfos(DatabaseInfos infos) {
 		this.infos = infos;
+	}
+
+
+	@Override
+	public void setPath(String path) {
+		infos.setPath(path);
 	}
 	
 	

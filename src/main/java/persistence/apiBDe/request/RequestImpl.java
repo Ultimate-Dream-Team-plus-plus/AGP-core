@@ -1,8 +1,10 @@
 package persistence.apiBDe.request;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +23,6 @@ import org.apache.lucene.store.FSDirectory;
 
 import business.spring.SpringIoC;
 import persistence.apiBDe.database.DatabaseInfos;
-import persistence.apiBDe.request.RequestList.RequestIterator;
 import persistence.config.LuceneConfig;
 
 /**
@@ -35,7 +36,6 @@ import persistence.config.LuceneConfig;
 
 public class RequestImpl<E> implements RequestManager<E> {
 
-	private LuceneConfig config = SpringIoC.getBean(LuceneConfig.class);
 	private DatabaseInfos infos = DatabaseInfos.getInstance();
 
 	@Override
@@ -46,10 +46,9 @@ public class RequestImpl<E> implements RequestManager<E> {
 
 	public Iterator<E> textRequest(String text) {
 		Analyzer analyseur = new StandardAnalyzer();
-		RequestList<PertinenceResult> values = new RequestList<PertinenceResult>();
-		Iterator<PertinenceResult> itTextRequest = values.iterator();
+		List<PertinenceResult> values = new ArrayList<PertinenceResult>();
 
-		Path indexPath = Path.of(config.getPathIndex() + "/" + infos.getFolder() + "index");
+		Path indexPath = Path.of(infos.getPath() + "/" + infos.getFolder() + "index");
 		Directory index;
 		try {
 			index = FSDirectory.open(indexPath);
@@ -74,7 +73,22 @@ public class RequestImpl<E> implements RequestManager<E> {
 			return null;
 		}
 
-		return (Iterator<E>) itTextRequest;
+		return (Iterator<E>) values.iterator();
+	}
+	
+	public Iterator<E> sqlRequest(String request) {
+		ResultSet results = null;
+		try {		    
+			Connection connection = JdbcConnection.getConnection();
+			
+			java.sql.Statement stmt = connection.createStatement();
+			results = stmt.executeQuery(request);		
+			stmt.close();
+			
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+		return (Iterator<E>) results;
 	}
 
 }

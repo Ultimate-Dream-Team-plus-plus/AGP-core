@@ -22,6 +22,13 @@ public interface DatabaseManager {
 	public void manageDB(String table, String indexColumn, String folder);
 
 	/**
+	 * Set the path where the EDB will be stored
+	 * 
+	 * @param path : String
+	 */
+	public void setPath(String path);
+
+	/**
 	 * Add a text to a specific value of the keyColumn
 	 * 
 	 * @param text     : String

@@ -19,13 +19,16 @@ public class APITest {
 		String table = "A";
 		String indexcolumn = "B";
 		String folder = "C";
+		String path = ".";
 		
 		infos.setFolder(folder);
 		infos.setTable(table);
 		infos.setKeyColumn(indexcolumn);
+		infos.setPath(path);
 		
 		DatabaseImpl infosRef = new DatabaseImpl();
 		infosRef.manageDB(table, indexcolumn, folder);
+		infosRef.setPath(path);
 		DatabaseInfos infostest = infosRef.getInfos(); 
 		assertEquals(infos.toString(), infostest.toString());
 		
@@ -36,9 +39,11 @@ public class APITest {
 		String table = "A";
 		String indexcolumn = "B";
 		String folder = "Test";
-		
-		DatabaseImpl impl = new DatabaseImpl();
+		String path = ".";
+
+		DatabaseManager impl = new DatabaseImpl();
 		impl.manageDB(table, indexcolumn, folder);
+		impl.setPath(path);
 		impl.addText("hfuezihfi oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur");
 		
 		File file = new File(folder+"/valeur.txt");
