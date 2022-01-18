@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 
 class JdbcConnection {
 	private static String host = "localhost";
-	private static String base = "bd_agp";
-	private static String user = "root";
-	private static String password = "";
-	private static String url = "jdbc:mysql://" + host + "/" + base + "?characterEncoding=utf8&useSSL=false&useUnicode=true";
+	private static String base = "agp_db";
+	private static String user = "nico";
+	private static String password = "password";
+	private static String url = "jdbc:mysql://" + host + "/" + base + "?allowPublicKeyRetrieval=true&characterEncoding=utf8&useSSL=false&useUnicode=true";
 
 	/**
 	 * Lazy singleton instance.

@@ -83,16 +83,14 @@ public class RequestImpl<E> implements RequestManager<E> {
 			
 			java.sql.Statement stmt = connection.createStatement();
 			results = stmt.executeQuery(request);
-			results.next();
-			System.out.println(results.getInt("co"));
-			stmt.close();
+			
+			ResultIterator resIter = new ResultIterator(stmt);
+			return resIter;
 			
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		ResultIterator resIter = new ResultIterator(results);
-//		resIter.next();
-		return resIter;
+		return null;
 	}
 
 }

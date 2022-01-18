@@ -42,11 +42,10 @@ public class TestBordel {
 //		ResultIterator resIter =  req.sqlRequest("SELECT count(*) AS co FROM hotel");
 		ResultIterator resIter =  req.sqlRequest("SELECT name FROM hotel");
 		Map<String, Object> res = new HashMap<String, Object>();
-		System.out.println(resIter.hasNext());
 		while(resIter.hasNext()) {
 			res = resIter.next();
-//			System.out.println(res.get("co"));
 			System.out.println(res.get("name"));
 		}
+
 	}
 }
