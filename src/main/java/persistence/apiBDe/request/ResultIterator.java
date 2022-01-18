@@ -34,28 +34,28 @@ public class ResultIterator implements Iterator<Map<String, Object>> {
 	}
 
 	private void goToNext() {
-		try {
-			this.hasNext = this.resultSet.getRow()>0;
-		} catch (SQLException e) {
-			this.hasNext = false;
-		}
-	}
+        try {
+            this.hasNext = this.resultSet.next();
+        } catch (SQLException e) {
+            this.hasNext = false;
+        }
+    }
 
-	@Override
-	public Map<String, Object> next() {
-		ResultSetMetaData rsmd;
-		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			rsmd = (ResultSetMetaData) resultSet.getMetaData();
-			int nbCols = rsmd.getColumnCount();
-			resultSet.next();
-			for (int i = 0; i < nbCols; i++) {
-				map.put(rsmd.getColumnName(i), resultSet.getObject(i));
-			}
-			return map;
-		} catch (SQLException e) {
-			return null;
-		}
-	}
+    @Override
+    public Map<String, Object> next() {
+        ResultSetMetaData rsmd;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            rsmd = (ResultSetMetaData) resultSet.getMetaData();
+            int nbCols = rsmd.getColumnCount();
+            for (int i = 0; i < nbCols; i++) {
+                map.put(rsmd.getColumnName(i), resultSet.getObject(i));
+            }
+            goToNext();
+            return map;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 
 }

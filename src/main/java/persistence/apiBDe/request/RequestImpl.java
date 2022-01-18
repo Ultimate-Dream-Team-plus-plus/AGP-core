@@ -76,19 +76,23 @@ public class RequestImpl<E> implements RequestManager<E> {
 		return (Iterator<E>) values.iterator();
 	}
 	
-	public Iterator<E> sqlRequest(String request) {
+	public ResultIterator sqlRequest(String request) {
 		ResultSet results = null;
 		try {		    
 			Connection connection = JdbcConnection.getConnection();
 			
 			java.sql.Statement stmt = connection.createStatement();
-			results = stmt.executeQuery(request);		
+			results = stmt.executeQuery(request);
+			results.next();
+			System.out.println(results.getInt("co"));
 			stmt.close();
 			
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return (Iterator<E>) results;
+		ResultIterator resIter = new ResultIterator(results);
+//		resIter.next();
+		return resIter;
 	}
 
 }
