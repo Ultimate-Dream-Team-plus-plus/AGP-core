@@ -17,7 +17,6 @@ public class ComfortAscendingStrategy implements OrderingStrategy{
 		List<Trip> orderedAscTrips = trips.stream()
 				.sorted(Comparator.comparing(Trip::getComfort))
 				.collect(Collectors.toList());
-
 		return orderedAscTrips;
 	}
 

@@ -10,7 +10,7 @@ import business.trip_finder.orderer.OrderingStrategy;
 public class PriceAscendingStrategy implements OrderingStrategy{
 
 	public PriceAscendingStrategy() {
-
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

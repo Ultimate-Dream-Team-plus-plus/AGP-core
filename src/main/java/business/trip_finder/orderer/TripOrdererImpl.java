@@ -52,7 +52,7 @@ public class TripOrdererImpl implements TripOrderer {
 			orderedTrip = null;
 			throw new NullPointerException("Wrong strategy given, please give the right strategy.");
 		}
-		return null;
+		return orderedTrip;
 	}
 
 }
