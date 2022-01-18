@@ -3,17 +3,17 @@
 -- ============================================================================
 
 -- Droping all tables if exists
-DROP TABLE IF EXISTS Transport;
-DROP TABLE IF EXISTS Site;
-DROP TABLE IF EXISTS RelHotelService;
-DROP TABLE IF EXISTS Hotel;
-DROP TABLE IF EXISTS Service;
+DROP TABLE IF EXISTS transport;
+DROP TABLE IF EXISTS site;
+DROP TABLE IF EXISTS relHotelService;
+DROP TABLE IF EXISTS hotel;
+DROP TABLE IF EXISTS service;
 
 -- ----------------------------------------------------------------------------
 
 -- Creating Transport table containing all types of transports and their 
 -- characteristics
-CREATE TABLE Transport
+CREATE TABLE transport
 (
   name VARCHAR(30) NOT NULL,
   pricePerKm FLOAT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE Transport
 );
 
 -- Creating Site table containing all sites and their characteristics
-CREATE TABLE Site
+CREATE TABLE site
 (
   name VARCHAR(100) NOT NULL,
   position GEOMETRY NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE Site
 );
 
 -- Creating Hotel table containing all hotels and their characteristics
-CREATE TABLE Hotel
+CREATE TABLE hotel
 (
   name VARCHAR(100) NOT NULL,
   position GEOMETRY NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE Hotel
 
 -- Creating Service table containing all hotels' services and their 
 -- characteristics
-CREATE TABLE Service
+CREATE TABLE service
 (
   name VARCHAR(50) NOT NULL,
   PRIMARY KEY(name)
@@ -54,7 +54,7 @@ CREATE TABLE Service
 
 -- Creating RelHotelService table relation between Hotel and Service 
 -- tables
-CREATE TABLE RelHotelService
+CREATE TABLE relHotelService
 (
   nameHotel VARCHAR(100) NOT NULL,
   nameService VARCHAR(50) NOT NULL,
