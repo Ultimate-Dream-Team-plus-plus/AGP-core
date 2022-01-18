@@ -12,9 +12,11 @@ public class TestBordel {
 		String table = "A";
 		String indexcolumn = "B";
 		String folder = "Test";
+		String path = ".";
 		
 		DatabaseImpl impl = new DatabaseImpl();
 		impl.manageDB(table, indexcolumn, folder);
+		impl.setPath(path);
 		impl.addText("hfuezihfi truc a a a truc a a a a alors a oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur");
 		impl.addText("hfuezihfi truc alors a a a a a a a a a oezpahfuipaezhfuiz alors aephfuopza ehfuo ipaegfp", "valeur1");
 		impl.addText("hfuezihfi truc a a a a a a a a a a oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur2");
