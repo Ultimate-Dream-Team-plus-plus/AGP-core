@@ -33,11 +33,9 @@ public class Ride {
 	private BigDecimal calculatePrice() {
 		// Do not take account of the price of the departure, as it is calculated by the
 		// previous ride.
-		BigDecimal distancebg = new BigDecimal(distance);
+		BigDecimal distancebg = BigDecimal.valueOf(distance).setScale(2);
 		BigDecimal arrivalPrice = arrival.getPrice();
-		BigDecimal distancePrice = BigDecimal
-				.valueOf(distancebg.multiply(transport.getPricePerKm())
-				.doubleValue())
+		BigDecimal distancePrice = distancebg.multiply(transport.getPricePerKm())
 				.setScale(2, RoundingMode.UP);
 		return arrivalPrice.add(distancePrice);
 	}
