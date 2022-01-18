@@ -1,5 +1,7 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import business.trip.places.Position;
 import business.trip.places.Site;
 import business.trip.transports.AquaticTransport;
 import business.trip.transports.LandTransport;
+import business.trip_finder.orderer.OrderingStrategyType;
+import business.trip_finder.orderer.TripOrdererImpl;
 
 public class OrderingTripTest {
 	private final Hotel hotel1 = new Hotel("Hotel 1", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), List.of());
@@ -92,21 +96,51 @@ public class OrderingTripTest {
 			);
 	@Test
 	public void sortedListTripsComAsc() {
-		
+		TripOrdererImpl toi = new TripOrdererImpl();
+		List<Trip> orderedList = toi.orderTrips(trips3, OrderingStrategyType.COMFORT_ASCENDING);
+		//assertTripsEqual(orderedList, List.of());
+		double comfort_days = days.get(0).getComfort() + days.get(1).getComfort() + days.get(2).getComfort();
+		double comfort_days2 = days2.get(0).getComfort() + days2.get(1).getComfort() + days2.get(2).getComfort();
+		double comfort_days3 = days3.get(0).getComfort() + days3.get(1).getComfort() + days3.get(2).getComfort();
+		System.out.println("comfort_days: " + comfort_days);
+		System.out.println("comfort_days2: " + comfort_days2);
+		System.out.println("comfort_days3: " + comfort_days3);
 	}
 	
 	@Test
 	public void sortedListTripsComDesc() {
-		
+		TripOrdererImpl toi = new TripOrdererImpl();
+		List<Trip> orderedList = toi.orderTrips(trips3, OrderingStrategyType.COMFORT_DECSCENDING);
+		assertTripsEqual(orderedList, List.of());
 	}
 	
 	@Test
 	public void sortedListTripsPriceAsc() {
-		
+		TripOrdererImpl toi = new TripOrdererImpl();
+		List<Trip> orderedList = toi.orderTrips(trips3, OrderingStrategyType.PRICE_ASCENDING);
+		assertTripsEqual(orderedList, List.of());
 	}
 	
 	@Test
 	public void sortedListTripsPriceDesc() {
-		
+		TripOrdererImpl toi = new TripOrdererImpl();
+		List<Trip> orderedList = toi.orderTrips(trips3, OrderingStrategyType.PRICE_DECSCENDING);
+		assertTripsEqual(orderedList, List.of());
+	}
+	
+	@Test
+	public void sortedListTripsGlobal() {
+		TripOrdererImpl toi = new TripOrdererImpl();
+		List<Trip> orderedList = toi.orderTrips(trips3, OrderingStrategyType.GLOBAL);
+		assertTripsEqual(orderedList, List.of());
+	}
+	
+	private void assertTripsEqual(List<Trip> orderedTrips, List<Trip> expectedTrips) {
+		for(int index = 0; index < orderedTrips.size(); index++) {
+			Trip orderedTrip = orderedTrips.get(index);
+			Trip expectedTrip = expectedTrips.get(index);
+			
+			assertEquals(orderedTrip.getPrice(), expectedTrip.getPrice());
+		}
 	}
 }

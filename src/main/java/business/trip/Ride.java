@@ -1,6 +1,7 @@
 package business.trip;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 import business.trip.places.Place;
@@ -26,15 +27,18 @@ public class Ride {
 	}
 
 	private double calculateComfort() {
-		// TODO : find this formula !
-		return 0.0;
+		return transport.comfortOverDistance(distance);
 	}
 
 	private BigDecimal calculatePrice() {
 		// Do not take account of the price of the departure, as it is calculated by the
 		// previous ride.
+		BigDecimal distancebg = new BigDecimal(distance);
 		BigDecimal arrivalPrice = arrival.getPrice();
-		BigDecimal distancePrice = BigDecimal.valueOf(distance / transport.getPricePerKm().doubleValue()).setScale(2);
+		BigDecimal distancePrice = BigDecimal
+				.valueOf(distancebg.multiply(transport.getPricePerKm())
+				.doubleValue())
+				.setScale(2, RoundingMode.UP);
 		return arrivalPrice.add(distancePrice);
 	}
 
