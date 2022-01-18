@@ -34,5 +34,7 @@ public interface TripBuilder {
 
 	TripBuilder withTransports(List<Transport> transports);
 	
+	TripBuilder withInput(BuilderInput input);
+	
 	Trip build();
 }
