@@ -158,9 +158,6 @@ VALUES ('Beach of Manava Suite Resort Tahiti',ST_GeomFromText('POINT(-17.5882411
 INSERT INTO site (name, position, price, isSeaSided, isIntoSea, type) 
 VALUES ('Beach of Rava Lodge',ST_GeomFromText('POINT(-17.615449256223137 -149.6070568591527)'),0,true,false,'beach');
 
-INSERT INTO site (name, position, price, isSeaSided, isIntoSea, type) 
-VALUES ('Beach of Kohutahia Lodge',ST_GeomFromText('POINT(-17.54502899003684 -149.5944300831791)'),0,true,false,'beach');
-
 -- ---------------------HOTEL-----------------------------
 INSERT INTO hotel(name,position,price,nbServices) 
 VALUES ('Pension Te Miti',ST_GeomFromText('POINT(-17.639899287522354 -149.58578423804053)'),50,0);
@@ -191,9 +188,6 @@ VALUES ('Manava Suite Resort Tahiti',ST_GeomFromText('POINT(-17.588241147366617 
 
 INSERT INTO hotel(name,position,price,nbServices)
 VALUES ('Rava Lodge',ST_GeomFromText('POINT(-17.615449256223137 -149.6070568591527)'),90,2);
-
-INSERT INTO hotel(name,position,price,nbServices) 
-VALUES ('Kohutahia Lodge',ST_GeomFromText('POINT(-17.54502899003684 -149.5944300831791)'),65,0);
 
 -- ---------------------TRANSPORT-----------------------------
 INSERT INTO transport(name, pricePerKm, speed, comfort)
