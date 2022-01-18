@@ -6,11 +6,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.paukov.combinatorics3.Generator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import business.trip.places.Site;
 
 public class BruteForcePathFinder implements PathFinder {
 	
+	private static Logger LOGGER = LoggerFactory.getLogger(BruteForcePathFinder.class);
+
 	@Override
 	public PlacesPath findPath(PlacesInput placesInput) {
 		Map<Double, List<Site>> possibleTrips = new HashMap<Double, List<Site>>();
@@ -26,6 +30,8 @@ public class BruteForcePathFinder implements PathFinder {
 		  .simple()
 		  .stream()
 		  .collect(Collectors.toList());
+		
+		LOGGER.info(collectedSites.size() + " combinaisons made out of given sites.");
 		
 		for(List<Site> sites2: collectedSites) {
 			if(sites2.size() > 1) {
@@ -44,9 +50,6 @@ public class BruteForcePathFinder implements PathFinder {
 			totalDistance = 0.0;
 		}
 		
-		for(Double value: possibleTrips.keySet()) {
-			System.out.println(value + " : " + possibleTrips.get(value) + "\n");
-		}
 		return new PlacesPath(placesInput.getDepartureHotel(), getLowestKeyMap(possibleTrips), placesInput.getArrivalHotel());
 	}
 	
@@ -57,7 +60,6 @@ public class BruteForcePathFinder implements PathFinder {
 				lowestValue = value;
 			}
 		}
-		System.err.println("Returned : " + map.get(lowestValue) + "\n");
 		return map.get(lowestValue);
 	}
 }
