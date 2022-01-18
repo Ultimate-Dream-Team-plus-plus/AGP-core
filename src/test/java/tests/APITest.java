@@ -37,7 +37,7 @@ public class APITest {
 		String indexcolumn = "B";
 		String folder = "Test";
 		
-		DatabaseImpl impl = new DatabaseImpl();
+		DatabaseManager impl = new DatabaseImpl();
 		impl.manageDB(table, indexcolumn, folder);
 		impl.addText("hfuezihfi oezpahfuipaezhfuiz aephfuopza ehfuo ipaegfp", "valeur");
 		

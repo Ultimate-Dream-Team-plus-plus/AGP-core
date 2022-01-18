@@ -21,7 +21,7 @@ import org.apache.lucene.store.FSDirectory;
 
 import business.spring.SpringIoC;
 import persistence.apiBDe.database.DatabaseInfos;
-import persistence.apiBDe.request.RequestList.RequestIterator;
+import persistence.apiBDe.request.ResultIterator.RequestIterator;
 import persistence.config.LuceneConfig;
 
 /**
@@ -46,8 +46,7 @@ public class RequestImpl<E> implements RequestManager<E> {
 
 	public Iterator<E> textRequest(String text) {
 		Analyzer analyseur = new StandardAnalyzer();
-		RequestList<PertinenceResult> values = new RequestList<PertinenceResult>();
-		Iterator<PertinenceResult> itTextRequest = values.iterator();
+		List<PertinenceResult> values = new ArrayList<PertinenceResult>();
 
 		Path indexPath = Path.of(config.getPathIndex() + "/" + infos.getFolder() + "index");
 		Directory index;
@@ -74,7 +73,7 @@ public class RequestImpl<E> implements RequestManager<E> {
 			return null;
 		}
 
-		return (Iterator<E>) itTextRequest;
+		return (Iterator<E>) values.iterator();
 	}
 
 }
