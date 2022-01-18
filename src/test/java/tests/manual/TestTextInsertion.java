@@ -9,7 +9,7 @@ import persistence.apiBDe.request.PertinenceResult;
 import persistence.apiBDe.request.RequestImpl;
 import persistence.apiBDe.request.ResultIterator;
 
-public class TestBordel {
+public class TestTextInsertion {
 
 	public static void main(String[] args) {
 		String table = "A";
