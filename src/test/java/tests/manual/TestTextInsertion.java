@@ -15,11 +15,7 @@ public class TestTextInsertion {
 		String table = "hotel";
 		String indexcolumn = "name";
 		String folder = "Test";
-<<<<<<< HEAD
-		String path = "D:\\Work\\Master\\AGP\\testIndex";
-=======
 		String path = ".";
->>>>>>> c399f72 (created the mixen request and correcting sql and text request)
 		
 		DatabaseImpl impl = new DatabaseImpl();
 		impl.manageDB(table, indexcolumn, folder);
