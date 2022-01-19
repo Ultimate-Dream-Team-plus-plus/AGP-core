@@ -1,6 +1,7 @@
 package business.trip;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class Trip {
@@ -38,4 +39,14 @@ public class Trip {
 	public double getComfort() {
 		return comfort;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sbDays = new StringBuilder();
+		days.forEach(sbDays::append);
+		return "Trip [" + "Total price: " + price.setScale(2, RoundingMode.UP) 
+		+ "€ - Comfort: " + BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " + sbDays.toString() + "]\n";
+	}
+	
+	
 }

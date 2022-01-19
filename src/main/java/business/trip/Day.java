@@ -1,6 +1,7 @@
 package business.trip;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import business.trip.places.Hotel;
@@ -56,4 +57,13 @@ public class Day {
 		return startHotel;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sbExcursions = new StringBuilder();
+		excursions.forEach(sbExcursions::append);
+		return "\n\tDay n°" + date + " (Departure: " + startHotel.getName() + " - Comfort : "
+		+ BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " + price.setScale(2, RoundingMode.UP) + "€ - \n" + sbExcursions.toString() + "\t)\n";
+	}
+
+	
 }

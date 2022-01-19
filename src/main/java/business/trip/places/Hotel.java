@@ -48,4 +48,5 @@ public class Hotel extends Place {
 	public double getComfort() {
 		return comfort;
 	}
+	
 }

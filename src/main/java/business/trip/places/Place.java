@@ -46,5 +46,12 @@ public abstract class Place {
 	public boolean isIntoSea() {
 		return isIntoSea;
 	}
+
+	@Override
+	public String toString() {
+		return name + " - Price:" + price;
+	}
+
+	
 	
 }

@@ -34,7 +34,7 @@ public class TripBuilderTest {
 			.withTransports(transports)
 			.withInput(input)
 			.build();
-		
-		System.out.println(trip.getPrice());
+		System.out.println(trip.toString());
+		//System.out.println(trip.getPrice());
 	}
 }

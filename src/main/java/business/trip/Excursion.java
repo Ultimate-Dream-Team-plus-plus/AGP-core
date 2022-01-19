@@ -1,6 +1,7 @@
 package business.trip;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,4 +73,15 @@ public class Excursion {
 		return totalDistance;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sbRides = new StringBuilder();
+		rides.forEach(sbRides::append);
+		return "\n\t\tExcursion {Departure: " + departureHotel.getName() + " - Arrival: " + arrivalHotel.getName() + " - "
+		+ price.setScale(2, RoundingMode.UP) + "€ - Comfort: " + BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " 
+		+ BigDecimal.valueOf(totalDistance).setScale(2, RoundingMode.UP) + "km - \n" + sbRides.toString()
+				+ "\t\t}\n\n";
+	}
+
+	
 }
