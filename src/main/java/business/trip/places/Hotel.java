@@ -48,5 +48,11 @@ public class Hotel extends Place {
 	public double getComfort() {
 		return comfort;
 	}
+
+	@Override
+	public String toString() {
+		return "[" + this.toString() + " - Comfort: " + comfort + " - NbPrestations:" + nbPrestation + ", Prestations:" + prestations + "]\n";
+	}
+	
 	
 }

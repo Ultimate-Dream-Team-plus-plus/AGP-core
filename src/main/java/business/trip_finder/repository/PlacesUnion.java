@@ -1,6 +1,7 @@
 package business.trip_finder.repository;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,4 +45,29 @@ public class PlacesUnion {
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sbHotels = new StringBuilder();
+		StringBuilder sbSites = new StringBuilder();
+		forEachAppendNewLine(hotels, sbHotels);
+		forEachAppendNewLine(sites, sbSites);
+		
+		return "Hotels: \n\t" + sbHotels.toString() + "\n" 
+		+ "-------------------------"
+		+ "\n\nSites: \n\t" + sbSites.toString();
+	}
+	
+	public static <T> void forEachAppendNewLine(List<T> list, StringBuilder sb) {
+		Consumer<String> consumer = line -> {
+			String str = line + "\n\t";
+			sb.append(str);
+		};
+		
+		for(T t : list) {
+			consumer.accept(t.toString());
+		}
+	}
+	
+	
 }
