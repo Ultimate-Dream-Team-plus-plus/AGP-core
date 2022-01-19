@@ -44,7 +44,7 @@ public class DatabaseImpl implements DatabaseManager {
 		try {
 			File directory = Path.of(infos.getPath(), infos.getFolder()).toFile();
 			if (!directory.exists()) {
-				directory.mkdir();
+				directory.mkdirs();
 			}
 			try(BufferedWriter writer = new BufferedWriter(
 					new FileWriter(Path.of(infos.getPath(), infos.getFolder(), keyvalue + ".txt").toFile()))) {

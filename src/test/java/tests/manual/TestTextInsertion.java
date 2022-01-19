@@ -15,7 +15,7 @@ public class TestTextInsertion {
 		String table = "A";
 		String indexcolumn = "B";
 		String folder = "Test";
-		String path = "D:\\Work\\Master\\AGP\\index";
+		String path = "D:\\Work\\Master\\AGP\\testIndex";
 		
 		DatabaseImpl impl = new DatabaseImpl();
 		impl.manageDB(table, indexcolumn, folder);
