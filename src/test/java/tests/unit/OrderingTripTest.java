@@ -17,6 +17,7 @@ import business.trip.places.Site;
 import business.trip.transports.AquaticTransport;
 import business.trip.transports.LandTransport;
 import business.trip_finder.orderer.OrderingStrategyType;
+import business.trip_finder.orderer.TripOrderer;
 import business.trip_finder.orderer.TripOrdererImpl;
 
 public class OrderingTripTest {
@@ -107,35 +108,35 @@ public class OrderingTripTest {
 			);
 	@Test
 	public void sortedListTripsComAsc() {
-		TripOrdererImpl toi = new TripOrdererImpl();
+		TripOrderer toi = new TripOrdererImpl();
 		List<Trip> orderedList = toi.orderTrips(trips, OrderingStrategyType.COMFORT_ASCENDING);
 		assertTripsEqual(orderedList, List.of(trips.get(0), trips.get(2), trips.get(1)));
 	}
 	
 	@Test
 	public void sortedListTripsComDesc() {
-		TripOrdererImpl toi = new TripOrdererImpl();
+		TripOrderer toi = new TripOrdererImpl();
 		List<Trip> orderedList = toi.orderTrips(trips, OrderingStrategyType.COMFORT_DECSCENDING);
 		assertTripsEqual(orderedList, List.of(trips.get(1), trips.get(2), trips.get(0)));
 	}
 	
 	@Test
 	public void sortedListTripsPriceAsc() {
-		TripOrdererImpl toi = new TripOrdererImpl();
+		TripOrderer toi = new TripOrdererImpl();
 		List<Trip> orderedList = toi.orderTrips(trips, OrderingStrategyType.PRICE_ASCENDING);
 		assertTripsEqual(orderedList, List.of(trips.get(2), trips.get(0), trips.get(1)));
 	}
 	
 	@Test
 	public void sortedListTripsPriceDesc() {
-		TripOrdererImpl toi = new TripOrdererImpl();
+		TripOrderer toi = new TripOrdererImpl();
 		List<Trip> orderedList = toi.orderTrips(trips, OrderingStrategyType.PRICE_DECSCENDING);
 		assertTripsEqual(orderedList, List.of(trips.get(1), trips.get(0), trips.get(2)));
 	}
 	
 	@Test
 	public void sortedListTripsGlobal() {
-		TripOrdererImpl toi = new TripOrdererImpl();
+		TripOrderer toi = new TripOrdererImpl();
 		List<Trip> orderedList = toi.orderTrips(trips, OrderingStrategyType.GLOBAL);
 		assertTripsEqual(orderedList, List.of(trips.get(0), trips.get(2), trips.get(1)));
 	}

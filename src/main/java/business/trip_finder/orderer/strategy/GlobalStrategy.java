@@ -20,7 +20,6 @@ public class GlobalStrategy implements OrderingStrategy{
 	@Override
 	public List<Trip> orderTrip(List<Trip> trips) {
 		Map<Double, Trip> map = new HashMap<Double, Trip>();
-		int index = 0;
 		double price, comfort, rate;
 		double maxPrice = trips.stream().max(Comparator.comparing(Trip::getPrice)).get().getPrice().doubleValue();
 
@@ -29,7 +28,6 @@ public class GlobalStrategy implements OrderingStrategy{
 			comfort = trip.getComfort();
 			rate = (price / maxPrice) * 0.5 + (comfort / 5) * 0.5;
 			map.put(rate, trip);
-			index++;
 		}
 		
 		/*map.entrySet()
