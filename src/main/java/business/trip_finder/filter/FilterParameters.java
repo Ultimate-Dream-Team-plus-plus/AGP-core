@@ -52,4 +52,12 @@ public class FilterParameters {
 	public void setMaxPrice(BigDecimal maxPrice) {
 		this.maxPrice = maxPrice;
 	}
+
+	@Override
+	public String toString() {
+		return "FilterParameters [nbDays=" + nbDays + ", nbExcursions=" + nbExcursions + ", minPrice=" + minPrice
+				+ ", maxPrice=" + maxPrice + "]";
+	}
+	
+	
 }

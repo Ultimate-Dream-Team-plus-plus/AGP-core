@@ -49,7 +49,7 @@ public abstract class Place {
 
 	@Override
 	public String toString() {
-		return name + " - Price:" + price;
+		return name + " - Price: " + price;
 	}
 
 	

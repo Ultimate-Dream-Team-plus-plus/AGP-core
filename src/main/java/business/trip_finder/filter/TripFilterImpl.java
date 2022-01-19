@@ -24,10 +24,10 @@ public class TripFilterImpl implements TripFilter {
 
 	@Override
 	public PlacesUnion filterPlaces(FilterParameters parameters, PlacesUnion placesUnion) {
-		LOGGER.info("Filter %d hotels and %d sites", placesUnion.getHotels().size(), placesUnion.getSites().size());
+		LOGGER.info("Filter " + placesUnion.getHotels().size() + " hotels and " + placesUnion.getSites().size() +" sites");
 		List<Hotel> hotels = findHotels(placesUnion, parameters);
 		List<Site> sites = findSites(placesUnion, parameters);
-		LOGGER.info("Got %d hotels and %d sites at the end", hotels.size(), sites.size());
+		LOGGER.info("Got " + hotels.size() + " hotels and " + sites.size() + " sites at the end");
 		return new PlacesUnion(hotels, sites);
 	}
 

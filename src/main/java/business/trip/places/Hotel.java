@@ -51,7 +51,7 @@ public class Hotel extends Place {
 
 	@Override
 	public String toString() {
-		return "[" + this.toString() + " - Comfort: " + comfort + " - NbPrestations:" + nbPrestation + ", Prestations:" + prestations + "]\n";
+		return "[" + super.toString() + " - Comfort: " + comfort + " - NbPrestations:" + nbPrestation + ", Prestations:" + prestations + "]\n";
 	}
 	
 	

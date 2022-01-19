@@ -28,7 +28,7 @@ public class MockSiteDao implements SiteDao {
 	public List<Site> findByRelevance(String query) {
 		// Return first 3 sites
 		return sites.stream()
-				.limit(3)
+				.limit(6)
 				.collect(Collectors.toList());
 	}
 
