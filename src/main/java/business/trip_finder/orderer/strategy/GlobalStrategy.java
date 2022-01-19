@@ -41,7 +41,7 @@ public class GlobalStrategy implements OrderingStrategy{
 				.sorted(Comparator.comparing(GlobalRatingTrip::getRate))
 				.collect(Collectors.toList());
 		
-		List<Trip> orderedTrips = ratedTrips.stream()
+		List<Trip> orderedTrips = ratedTrips.stream() 
 				.map(GlobalRatingTrip::getTrip)
 				.collect(Collectors.toList());
 		
