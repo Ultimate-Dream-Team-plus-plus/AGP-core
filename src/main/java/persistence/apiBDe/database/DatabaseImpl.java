@@ -29,29 +29,27 @@ public class DatabaseImpl implements DatabaseManager {
 	private DatabaseInfos infos = DatabaseInfos.getInstance();
 
 	// --- Methods ---
-	
-	public DatabaseImpl() {
-		
-	}
 
+	public DatabaseImpl() {
+
+	}
 
 	@Override
 	public void manageDB(String table, String indexColumn, String folder) {
 		infos.setValues(table, indexColumn, folder);
 	}
-	
-	
 
 	@Override
 	public boolean addText(String text, String keyvalue) {
 		try {
-			File directory = new File(infos.getFolder());
-			if(!directory.exists()) {
+			File directory = Path.of(infos.getPath(), infos.getFolder()).toFile();
+			if (!directory.exists()) {
 				directory.mkdir();
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(infos.getPath()+"/"+infos.getFolder()+"/"+keyvalue+".txt"));
-			writer.write(text);
-			writer.close();
+			try(BufferedWriter writer = new BufferedWriter(
+					new FileWriter(Path.of(infos.getPath(), infos.getFolder(), keyvalue + ".txt").toFile()))) {
+				writer.write(text);
+			}
 		} catch (IOException e) {
 			return false;
 		}
@@ -64,22 +62,21 @@ public class DatabaseImpl implements DatabaseManager {
 		try {
 			Analyzer analyser = new StandardAnalyzer();
 
-			Path indexPath = Path.of(infos.getPath()+"/" + infos.getFolder() + "index");
-			File f = new File(indexPath.toString());
-			if(f.exists()) {
-				for(File elt: f.listFiles())  
-				        elt.delete();
+			File f = Path.of(infos.getPath(), infos.getFolder() + "index").toFile();
+			if (f.exists()) {
+				for (File elt : f.listFiles())
+					elt.delete();
 			}
-			Directory index = FSDirectory.open(indexPath);
+			Directory index = FSDirectory.open(f.toPath());
 
 			IndexWriterConfig config = new IndexWriterConfig(analyser);
 			IndexWriter writer = new IndexWriter(index, config);
 
-			File folder = new File("./" + infos.getFolder());
+			File folder = Path.of(infos.getPath(), infos.getFolder()).toFile();
 			File[] listOfFiles = folder.listFiles();
 
 			for (File textFile : listOfFiles) {
-				File file = new File(infos.getPath()+"/" + infos.getFolder() + "/" + textFile.getName());
+				File file = Path.of(infos.getPath(), infos.getFolder(), textFile.getName()).toFile();
 
 				Document document = new Document();
 				document.add(new Field("name", file.getName(), TextField.TYPE_STORED));
@@ -104,12 +101,9 @@ public class DatabaseImpl implements DatabaseManager {
 		this.infos = infos;
 	}
 
-
 	@Override
 	public void setPath(String path) {
 		infos.setPath(path);
 	}
-	
-	
 
 }
