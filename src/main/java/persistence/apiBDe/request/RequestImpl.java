@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -40,12 +42,14 @@ public class RequestImpl<E> implements RequestManager<E> {
 	private DatabaseInfos infos = DatabaseInfos.getInstance();
 
 	@Override
-	public Iterator<E> request(String request) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<Map<String, Object>> request(String request) {
+		if(request.contains("with")) {
+			return joinRequest(request);
+		}
+		return  sqlRequest(request);
 	}
 
-	public Iterator<E> textRequest(String text) {
+	public Iterator<PertinenceResult> textRequest(String text) {
 		Analyzer analyseur = new StandardAnalyzer();
 		List<PertinenceResult> values = new ArrayList<PertinenceResult>();
 
@@ -58,15 +62,14 @@ public class RequestImpl<E> implements RequestManager<E> {
 
 			QueryParser qp = new QueryParser("content", analyseur);
 			Query req = qp.parse(text);
-			
-		    TopDocs resultats = searcher.search(req, 1000); //recherche
-		    System.out.println(resultats.scoreDocs.length);
-		    for(int i=0; i<resultats.scoreDocs.length; i++) {
-		    	Document d = searcher.doc(i);
-		    	PertinenceResult result = new PertinenceResult(resultats.scoreDocs[i].score, d.get("name"));
-		    	values.add(result);
-		    }
 
+			TopDocs resultats = searcher.search(req, 1000); // recherche
+			for (int i = 0; i < resultats.scoreDocs.length; i++) {
+				Document d = searcher.doc(i);
+				String[] name = d.get("name").split("\\.");
+				PertinenceResult result = new PertinenceResult(resultats.scoreDocs[i].score, name[0]);
+				values.add(result);
+			}
 
 		} catch (IOException e) {
 			return null;
@@ -74,83 +77,107 @@ public class RequestImpl<E> implements RequestManager<E> {
 			return null;
 		}
 
-		return (Iterator<E>) values.iterator();
+		return values.iterator();
 	}
-	
-	public ResultIterator sqlRequest(String request) {
+
+	public Iterator<Map<String, Object>> sqlRequest(String request) {
 		ResultSet results = null;
-		try {		    
+		try {
 			Connection connection = JdbcConnection.getConnection();
-			
+
 			java.sql.Statement stmt = connection.createStatement();
 			results = stmt.executeQuery(request);
-			
+
 			ResultIterator resIter = new ResultIterator(stmt);
-			return resIter;
+			List<Map<String, Object>> listReq = new ArrayList<Map<String,Object>>();
 			
+			while(resIter.hasNext()) {
+				listReq.add(resIter.next());
+			}
+			
+			return listReq.iterator();
+
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
 		return null;
 	}
-	
+
 	private String addKeyRequest(String request) {
 		List<String> requestSplit = Arrays.asList(request.split("\\ "));
-		String word="";
-		int i=0;
+		String word = "";
+		int i = 0;
 		while (!requestSplit.get(i).equals("FROM")) {
-			if(requestSplit.get(i).equals(infos.getKeyColumn())) {
+			if (requestSplit.get(i).equals(infos.getKeyColumn())) {
 				return request;
 			}
 			i++;
-        }
-		//Ajouter la clef dans la partie select
-		requestSplit.add(1,infos.getKeyColumn());
-		
-		return String.join(" ",requestSplit);
+		}
+		// Ajouter la clef dans la partie select
+		requestSplit.set(0, "SELECT "+ infos.getKeyColumn() + " ,");
+		return String.join(" ", requestSplit);
 	}
-	
-	public ArrayList<Map<String,Object>> joinRequest(String request) {
+
+	public Iterator<Map<String, Object>> joinRequest(String request) {
+		
+		request = addKeyRequest(request);
+		System.out.println("REQUEST -> "+request);
+
+		// Récupération des mots clef
+		String separatorSqlText = "with";
+		int posWith = request.indexOf(separatorSqlText);
+		int endWith = posWith + separatorSqlText.length()+1;
 		
 		
-		//Récupération des mots clef
-		String separatorSqlText="with";
-		int posWith=request.indexOf(separatorSqlText);
-		int endWith=posWith+separatorSqlText.length()-1;
-		
-		//Récupération du résultat de la requete sql
-		String sqlPart=request.substring(0,posWith);
-		ResultIterator iterSql=sqlRequest(sqlPart);
-		
-		//Récupération du résultat de la requete textuel
-		String keyWords=request.substring(endWith);
-		Iterator<PertinenceResult> iterText=(Iterator<PertinenceResult>) textRequest(keyWords);
-		ArrayList<PertinenceResult> resultsList= new ArrayList<PertinenceResult>();
-		
-		//On stocke le résultat dans une liste car tient en mémoire
-		while(iterText.hasNext()) {
+		// Récupération du résultat de la requete sql
+		String sqlPart = request.substring(0, posWith);
+		Iterator<Map<String, Object>> iterSql = sqlRequest(sqlPart);
+
+		// Récupération du résultat de la requete textuel
+		String keyWords = request.substring(endWith);
+
+		Iterator<PertinenceResult> iterText = (Iterator<PertinenceResult>) textRequest(keyWords);
+		List<PertinenceResult> resultsList = new ArrayList<PertinenceResult>();
+
+		// On stocke le résultat dans une liste car tient en mémoire
+		while (iterText.hasNext()) {
 			PertinenceResult res = iterText.next();
 			resultsList.add(res);
 		}
-		//Liste ou sera stockée les résultats de la requete mixte
-		ArrayList<Map<String,Object>>mixedQueryResult= new ArrayList<Map<String,Object>>();
-		
-		//idée parcours iterSql et on vérifie si la clef est aussi dans la liste des résultats de la partie textuel
+
+		// Liste ou sera stockée les résultats de la requete mixte
+		List<Map<String, Object>> mixedQueryResult = new ArrayList<Map<String, Object>>();
+
+		// idée parcours iterSql et on vérifie si la clef est aussi dans la liste des
+		// résultats de la partie textuel
 		Map<String, Object> resSql = new HashMap<String, Object>();
-		while(iterSql.hasNext()) {
+		while (iterSql.hasNext()) {
 			resSql = iterSql.next();
-			
-			//Parcours du tableau 
-			for (PertinenceResult pertinenceResult : resultsList )
-		      {
-		         if(pertinenceResult.getName().equals(resSql.get(infos.getKeyColumn()))) {
-		        	 mixedQueryResult.add(resSql);
-		         }
-		      }
-		}	
-		return mixedQueryResult;
-		//Jointure
+			// Parcours du tableau
+			for (PertinenceResult pertinenceResult : resultsList) {
+//				System.out.println("test");
+//				System.out.println(pertinenceResult.getName()+" --- " + resSql.get(infos.getKeyColumn()));
+				if (pertinenceResult.getName().equals(resSql.get(infos.getKeyColumn()))) {
+					mixedQueryResult.add(resSql);
+//					System.out.println("UIIIIII");
+				}
+			}
+		}
+		// tri de la liste
+//		return mixedQueryResult.iterator();
+		List<Map<String, Object>> sorted = resultsList.stream()
+	            .map(findLine(mixedQueryResult))
+	            .collect(Collectors.toList());
+		
+		return sorted.iterator();
 		
 	}
+	
+	private Function<PertinenceResult, Map<String, Object>> findLine(List<Map<String, Object>> lines) {
+        return p -> lines.stream()
+                .filter(m -> m.get("name").equals(p.getName()))
+                .findFirst()
+                .orElseThrow();
+    }
 
 }

@@ -1,6 +1,7 @@
 package persistence.apiBDe.request;
 
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This interface allow the user to execute all his SQL request and get the
@@ -18,6 +19,6 @@ public interface RequestManager<E> {
 	 * @param request : String - The SQL Request
 	 * @return Iterator
 	 */
-	public Iterator<E> request(String request);
+	public Iterator<Map<String, Object>> request(String request);
 
 }
