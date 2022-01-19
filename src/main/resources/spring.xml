@@ -17,6 +17,8 @@
 	<bean id="luceneConfig" class="persistence.config.LuceneConfig">
 		<property name="pathIndex" value="${lucene.index.path}"/>
 	</bean>
+	
+	<bean id="bestTripFinder" class="mocks.MockBestTripFinder"/>
 
 	<!--bean id="jdbcInformations" class="persistence.jdbc.JdbcInformations">
 		<property name="databaseName" value="${jdbc.name}" />

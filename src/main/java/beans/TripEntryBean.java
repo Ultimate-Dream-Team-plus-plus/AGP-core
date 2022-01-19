@@ -6,20 +6,23 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import business.spring.SpringIoC;
 import business.trip.Trip;
 import business.trip_finder.TripParameters;
 import business.trip_finder.best_trip_finder.BestTripFinder;
+import mocks.MockBestTripFinder;
 
 
-
-public class EntryBean {
+@ManagedBean
+@SessionScoped
+public class TripEntryBean {
 	private Exception error;
 	private List<Trip> bestTrips;
 	private TripParameters tripParameters = new TripParameters();
-	private BestTripFinder bestTripFinder=  SpringIoC.getBean(BestTripFinder.class);
+	private BestTripFinder bestTripFinder=  new MockBestTripFinder();
 	
-	public EntryBean() {
+
+	
+	public TripEntryBean() {
 	}
 	
 	public String search() {
@@ -75,11 +78,11 @@ public class EntryBean {
 	}
 	
 	public BigDecimal getMaxPrice() {
-		return tripParameters.getMinPrice();
+		return tripParameters.getMaxPrice();
 	}
 	
 	public void setMaxPrice(BigDecimal maxPrice) {
-		tripParameters.setMinPrice(maxPrice);
+		tripParameters.setMaxPrice(maxPrice);
 	}
 	
 	public Double getComfort() {

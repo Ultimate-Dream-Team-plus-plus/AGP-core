@@ -1,7 +1,7 @@
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>AGP Dream team plus plus</title>
 </h:head>
@@ -11,28 +11,29 @@
 		<legend>Research settings</legend>
 		<h:form>
 			Key words:
-                <h:inputText value="#{entryBean.keywords}" size="60" />
+                <h:inputText value="#{tripEntryBean.keywords}" size="60" />
 			<br />
-                 Price: Mininmum:
-                <h:inputText value="#{entryBean.minPrice}"  size="5"/>
-                Maximum:
-                <h:inputText value="#{entryBean.maxPrice}"  size="5"/>
+                 Price: 
+                 <h:outputLabel value = "Mininmum:"/>
+                 <p:spinner value="#{tripEntryBean.minPrice}" min="0" size="3"/>
+                 <h:outputLabel value = "Maximum:"/>
+                 <p:spinner value="#{tripEntryBean.maxPrice}"  min="0" size="5"/>               
             <br />
-                Comfort:
-                <h:inputText value="#{entryBean.comfort}"  size="2"/>
+            <h:outputLabel value = "Comfort:"/>
+                 <p:spinner value="#{tripEntryBean.comfort}" stepFactor="0.1" min="0" max="5" size="2"/> 
+            
             <br />
                 Number of days:
-                <h:inputText value="#{entryBean.nbDays}"  size="2"/>
+                <h:inputText value="#{tripEntryBean.nbDays}"  size="2"/>
 			<br />
 		Sort by:
-		<h:selectOneMenu value="#{entryBean.filterBy}">
-			<f:selectItem itemValue="increasingPrice" itemlabel="Increasing Price" />
-			<f:selectItem itemValue="decreasingPrice" itemlabel="Decreasing Price" />
-			<f:selectItem itemValue="increasingComfort" itemlabel="Increasing Comfort" />
-			<f:selectItem itemValue="decreasingComfort" itemlabel="Decreasing Comfort" />		
+		<h:selectOneMenu value="#{tripEntryBean.filterBy}">
+			<f:selectItem itemValue="GLOBAL" itemlabel="Increasing Price" />
+			<f:selectItem itemValue="PRICE" itemlabel="Increasing Price" />
+			<f:selectItem itemValue="COMFORT" itemlabel="Decreasing Price" />
 		</h:selectOneMenu>
 		<br />
-				<h:commandButton value="Search" action="#{entryBean.search}" />
+				<h:commandButton value="Search" action="#{tripEntryBean.search}" />
 		</h:form>
 	</fieldset>
 </h:body>
