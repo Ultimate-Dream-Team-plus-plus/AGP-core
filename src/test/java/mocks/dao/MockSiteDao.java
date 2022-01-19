@@ -17,7 +17,9 @@ public class MockSiteDao implements SiteDao {
 			new Site("Site 3", new Position(-18.6394, -150.4229), BigDecimal.valueOf(30.0), false, false),
 			new Site("Site 4", new Position(-17.0112, -149.1111), BigDecimal.valueOf(29.99), true, false),
 			new Site("Site 5", new Position(-17.1111, -150.4229), BigDecimal.valueOf(333.33), false, false),
-			new Site("Site 6", new Position(-17.3333, -148.4229), BigDecimal.valueOf(72.49), true, false));
+			new Site("Site 6", new Position(-17.1111, -150.4229), BigDecimal.valueOf(12.99), false, false),
+			new Site("Site 7", new Position(-17.1111, -150.4229), BigDecimal.valueOf(0.00), false, false),
+			new Site("Site 8", new Position(-17.3333, -148.4229), BigDecimal.valueOf(0.00), true, false));
 
 	@Override
 	public Iterator<Site> findAll() {
@@ -28,7 +30,6 @@ public class MockSiteDao implements SiteDao {
 	public List<Site> findByRelevance(String query) {
 		// Return first 3 sites
 		return sites.stream()
-				.limit(6)
 				.collect(Collectors.toList());
 	}
 

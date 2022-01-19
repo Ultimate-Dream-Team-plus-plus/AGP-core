@@ -1,6 +1,7 @@
 package business.trip_finder.filter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -45,7 +46,7 @@ public class TripFilterImpl implements TripFilter {
 				.reduce(BigDecimal.ZERO.setScale(2), BigDecimal::add);
 
 		int nbHotels = hotels.size();
-		BigDecimal averageHotelPrice = allHotelsSum.divide(BigDecimal.valueOf(nbHotels));
+		BigDecimal averageHotelPrice = allHotelsSum.divide(BigDecimal.valueOf(nbHotels), RoundingMode.HALF_UP);
 
 		BigDecimal theoricalHotelCost = averageHotelPrice.multiply(BigDecimal.valueOf(nbHotelUsed));
 		if (maxHotelPrice.compareTo(theoricalHotelCost) >= 0) {
@@ -72,13 +73,14 @@ public class TripFilterImpl implements TripFilter {
 					.map(Hotel::getPrice)
 					.skip(nbHotelsToRemove)
 					.reduce(BigDecimal.ZERO, BigDecimal::add);
-			avg = avg.divide(BigDecimal.valueOf(currentNbHotels));
+			avg = avg.divide(BigDecimal.valueOf(currentNbHotels), RoundingMode.HALF_UP);
 			BigDecimal price = avg.multiply(BigDecimal.valueOf(nbHotelUsed));
 			// if price between min and max, we are good too
-			if (price.compareTo(maxHotelPrice) == -1 || PriceUtils.isBetween(price, minHotelPrice, maxHotelPrice)) {
+			if (price.compareTo(maxHotelPrice) == 1 || PriceUtils.isBetween(price, minHotelPrice, maxHotelPrice)) {
 				break;
 			}
 			nbHotelsToRemove++;
+			currentNbHotels = nHotels - nbHotelsToRemove;
 		}
 		// We go out of the loop because we removed one hotel too many
 		nbHotelsToRemove--;
@@ -104,16 +106,17 @@ public class TripFilterImpl implements TripFilter {
 					.map(Hotel::getPrice)
 					.skip(nbHotelsToRemove) // remove most expensive first
 					.reduce(BigDecimal.ZERO, BigDecimal::add);
-			avg = avg.divide(BigDecimal.valueOf(currentNbHotels));
+			avg = avg.divide(BigDecimal.valueOf(currentNbHotels), RoundingMode.HALF_UP);
 			BigDecimal price = avg.multiply(BigDecimal.valueOf(nbHotelUsed));
 			// if price between min and max, we are good
 			if (price.compareTo(maxHotelPrice) == -1) {
 				break;
 			}
 			nbHotelsToRemove++;
+			currentNbHotels = nHotels - nbHotelsToRemove;
 		}
 		return hotelSortedByPriceDesc.stream()
-				.limit(nbHotelsToRemove)
+				.skip(nbHotelsToRemove)
 				.collect(Collectors.toList());
 	}
 
@@ -129,7 +132,7 @@ public class TripFilterImpl implements TripFilter {
 		if (priceAllSites.compareTo(maxSitesPrice) == 1) {
 			List<Site> sitesByPriceDesc = sites
 					.stream()
-					.sorted(Comparator.comparing(Site::getPrice))
+					.sorted(Comparator.comparing(Site::getPrice).reversed())
 					.collect(Collectors.toList());
 
 			int nbSitesToRemove = 1;
