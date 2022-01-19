@@ -7,3 +7,7 @@ jdbc.user=agp_user
 jdbc.password=agp_password
 
 lucene.index.path=/home/nico/eclipse-workspace/AGP-core
+
+bde.table=site
+bde.index.column=name
+bde.folder.path=Test

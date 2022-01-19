@@ -17,7 +17,11 @@ public class SearchTripResultBean {
 	private TripEntryBean tripEntryBean;
 
 	public SearchTripResultBean() {
-
+		
+	}
+	
+	public int indexOf(Trip trip) {
+		return tripEntryBean.getBestTrips().indexOf(trip);
 	}
 
 	public TripEntryBean getTripEntryBean() {

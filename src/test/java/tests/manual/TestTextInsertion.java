@@ -4,22 +4,30 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import business.spring.SpringIoC;
 import persistence.apiBDe.database.DatabaseImpl;
+import persistence.apiBDe.request.JdbcConnection;
 import persistence.apiBDe.request.PertinenceResult;
 import persistence.apiBDe.request.RequestImpl;
 import persistence.apiBDe.request.ResultIterator;
+import persistence.config.BdeConfig;
+import persistence.config.JdbcConfig;
+import persistence.config.LuceneConfig;
 
 public class TestTextInsertion {
 
 	public static void main(String[] args) {
-		String table = "hotel";
-		String indexcolumn = "name";
-		String folder = "Test";
-		String path = ".";
+		BdeConfig bdeConfig = SpringIoC.getBean(BdeConfig.class);
+		JdbcConfig jdbcConfig = SpringIoC.getBean(JdbcConfig.class);
+		LuceneConfig luceneConfig = SpringIoC.getBean(LuceneConfig.class);
+		
+		JdbcConnection.setConfig(jdbcConfig);
 		
 		DatabaseImpl impl = new DatabaseImpl();
-		impl.manageDB(table, indexcolumn, folder);
-		impl.setPath(path);
+		impl.manageDB(bdeConfig.getTable(), bdeConfig.getIndexColumn(), bdeConfig.getFolder());
+		impl.setPath(luceneConfig.getPathIndex());
+		
+		
 		impl.addText("très joli", "Hilton Hotel Tahiti");
 		impl.addText("joli", "Fare Arearea");
 		impl.addText("nul", "Manava Suite Resort Tahiti");

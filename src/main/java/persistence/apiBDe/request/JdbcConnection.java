@@ -3,11 +3,13 @@ package persistence.apiBDe.request;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-class JdbcConnection {
+import persistence.config.JdbcConfig;
+
+public class JdbcConnection {
 	private static String host = "localhost";
-	private static String base = "agp_db";
-	private static String user = "nico";
-	private static String password = "password";
+	private static String base = "database";
+	private static String user = "root";
+	private static String password = "";
 	private static String url = "jdbc:mysql://" + host + "/" + base;
 
 	/**
@@ -23,8 +25,17 @@ class JdbcConnection {
 				connection = DriverManager.getConnection(url, user, password);
 			} catch (Exception e) {
 				System.err.println("Connection failed : " + e.getMessage());
+				throw new RuntimeException(e);
 			}
 		}
 		return connection;
+	}
+	
+	public static void setConfig(JdbcConfig config) {
+		JdbcConnection.base = config.getDatabaseName();
+		JdbcConnection.host = config.getHost();
+		JdbcConnection.user = config.getUsername();
+		JdbcConnection.password = config.getPassword();
+		JdbcConnection.url = "jdbc:mysql://" + host + "/" + base;
 	}
 }

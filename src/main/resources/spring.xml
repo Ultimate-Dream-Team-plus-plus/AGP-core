@@ -14,8 +14,23 @@
 		</property>
 	</bean>
 	
+	<!-- Config beans, injected into non spring-related classes -->
 	<bean id="luceneConfig" class="persistence.config.LuceneConfig">
 		<property name="pathIndex" value="${lucene.index.path}"/>
+	</bean>
+	
+	<bean id="jdbcConfig" class="persistence.config.JdbcConfig">
+		<property name="databaseName" value="${jdbc.name}" />
+		<property name="port" value="${jdbc.port}" />
+		<property name="host" value="${jdbc.host}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<bean id="bdeConfig" class="persistence.config.BdeConfig">
+		<property name="table" value="${bde.table}" />
+		<property name="indexColumn" value="${bde.index.column}" />
+		<property name="folder" value="${bde.folder.path}" />
 	</bean>
 	
 	<bean id="bestTripFinder" class="mocks.MockBestTripFinder"/>
