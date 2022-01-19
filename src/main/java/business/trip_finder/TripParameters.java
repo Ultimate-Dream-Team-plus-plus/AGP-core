@@ -8,6 +8,10 @@ import business.trip_finder.rater.RatingStrategyType;
 
 public class TripParameters {
 
+	private static final BigDecimal MINIMUM_PRICE = BigDecimal.valueOf(500);
+	
+	private static final BigDecimal MAXIMUM_PRICE = BigDecimal.valueOf(5000);
+	
 	private BigDecimal minPrice = BigDecimal.valueOf(1000.00);
 
 	private BigDecimal maxPrice = BigDecimal.valueOf(2000.00);
@@ -69,6 +73,22 @@ public class TripParameters {
 			throw new IllegalArgumentException("The number of days must not be too high (max : 20)");
 		}
 		
+		// if minPrice < MINIMUM_PRICE
+		if(minPrice.compareTo(MINIMUM_PRICE) == -1) {
+			throw new IllegalArgumentException("Minimum value " + minPrice + " cannot be under " + MINIMUM_PRICE 
+					+ ".");
+		}
+		
+		// if maxPrice > MAXIMUM_PRICE
+		if(maxPrice.compareTo(MAXIMUM_PRICE) == 1) {
+			throw new IllegalArgumentException("Maximum value " + maxPrice + " cannot be over " + MAXIMUM_PRICE 
+					+ ".");
+		}
+		// if maxPrice < minPrice
+		if(minPrice.compareTo(maxPrice) == 1) {
+			throw new IllegalArgumentException("Minimum value " + minPrice + " cannot be over the maximum value.");
+		}
+
 		// filterBy value must correspond to any RatingStrategyType value
 		// This will throw an exception if it is not the case
 		OrderingStrategyType value = OrderingStrategyType.valueOf(filterBy);
