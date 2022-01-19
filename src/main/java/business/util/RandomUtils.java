@@ -25,7 +25,7 @@ public class RandomUtils {
 	 * Returns a random number in range [min, max[
 	 */
 	public static int randomInt(int min, int max) {
-		return random.nextInt(max - min + 1) + min;
+		return random.nextInt(max - min) + min;
 	}
 	
 	/**

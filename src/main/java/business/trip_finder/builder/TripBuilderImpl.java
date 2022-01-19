@@ -54,7 +54,7 @@ public class TripBuilderImpl implements TripBuilder {
 		if (nbExcursions <= 0) {
 			throw new IllegalArgumentException("The number of excursions is invalid : " + nbExcursions);
 		}
-		LOGGER.info("Create trip with %d excursions on %d days", nbExcursions, nbDays);
+		LOGGER.info("Create trip with {} excursions on {} days", nbExcursions, nbDays);
 		initAlgorithmAttributes();
 
 		List<Excursion> excursions = createExcursions();
@@ -115,7 +115,7 @@ public class TripBuilderImpl implements TripBuilder {
 		List<Excursion> excursions = new ArrayList<>();
 		// We don't want to be in the same hotel over and over
 		for (int index = 0; index < builderInput.getNbExcursions(); index++) {
-			LOGGER.info("Create Excursion %d / %d", (index + 1), builderInput.getNbExcursions());
+			LOGGER.info("Create Excursion {} / {}", (index + 1), builderInput.getNbExcursions());
 			PlacesPath placesPath = findPlacesPath(firstHotel);
 
 			updateUnusedLists(placesPath);
@@ -196,11 +196,12 @@ public class TripBuilderImpl implements TripBuilder {
 				.collect(Collectors.toList());
 		int idxComfort = 0;
 		for (double comfort : comforts) {
+			idxComfort++;
 			if (comfort > wantedComfort) {
 				break;
 			}
-			idxComfort++;
 		}
+		idxComfort--;
 		Transport transportUsed = transportListUsed.get(idxComfort);
 		return transportUsed;
 	}
