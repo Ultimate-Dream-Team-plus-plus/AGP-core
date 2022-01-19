@@ -58,12 +58,12 @@ public class RequestImpl<E> implements RequestManager<E> {
 		try {
 			index = FSDirectory.open(indexPath);
 			DirectoryReader ireader = DirectoryReader.open(index);
-			IndexSearcher searcher = new IndexSearcher(ireader); // l'objet qui fait la recherche dans l'index
+			IndexSearcher searcher = new IndexSearcher(ireader);  // the object that searches the index
 
 			QueryParser qp = new QueryParser("content", analyseur);
 			Query req = qp.parse(text);
 
-			TopDocs resultats = searcher.search(req, 1000); // recherche
+			TopDocs resultats = searcher.search(req, 1000);
 			for (int i = 0; i < resultats.scoreDocs.length; i++) {
 				Document d = searcher.doc(i);
 				String[] name = d.get("name").split("\\.");
@@ -105,7 +105,6 @@ public class RequestImpl<E> implements RequestManager<E> {
 
 	private String addKeyRequest(String request) {
 		List<String> requestSplit = Arrays.asList(request.split("\\ "));
-		String word = "";
 		int i = 0;
 		while (!requestSplit.get(i).equals("FROM")) {
 			if (requestSplit.get(i).equals(infos.getKeyColumn())) {
@@ -113,7 +112,7 @@ public class RequestImpl<E> implements RequestManager<E> {
 			}
 			i++;
 		}
-		// Ajouter la clef dans la partie select
+		// Add the key in the select part
 		requestSplit.set(0, "SELECT "+ infos.getKeyColumn() + " ,");
 		return String.join(" ", requestSplit);
 	}
@@ -121,49 +120,41 @@ public class RequestImpl<E> implements RequestManager<E> {
 	public Iterator<Map<String, Object>> joinRequest(String request) {
 		
 		request = addKeyRequest(request);
-		
-		// Récupération des mots clef
+		// Recovery of keywords
 		String separatorSqlText = "with";
 		int posWith = request.indexOf(separatorSqlText);
 		int endWith = posWith + separatorSqlText.length()+1;
 		
 		
-		// Récupération du résultat de la requete sql
+		// Recovering the result of the sql query
 		String sqlPart = request.substring(0, posWith);
 		Iterator<Map<String, Object>> iterSql = sqlRequest(sqlPart);
 
-		// Récupération du résultat de la requete textuel
+		// Retrieving the result of the textual query
 		String keyWords = request.substring(endWith);
 
 		Iterator<PertinenceResult> iterText = (Iterator<PertinenceResult>) textRequest(keyWords);
 		List<PertinenceResult> resultsList = new ArrayList<PertinenceResult>();
 
-		// On stocke le résultat dans une liste car tient en mémoire
+		// We store the result in a list because it fits in memory
 		while (iterText.hasNext()) {
 			PertinenceResult res = iterText.next();
 			resultsList.add(res);
 		}
 
-		// Liste ou sera stockée les résultats de la requete mixte
+		// List where the results of the mixed query will be stored
 		List<Map<String, Object>> mixedQueryResult = new ArrayList<Map<String, Object>>();
 
-		// idée parcours iterSql et on vérifie si la clef est aussi dans la liste des
-		// résultats de la partie textuel
 		Map<String, Object> resSql = new HashMap<String, Object>();
 		while (iterSql.hasNext()) {
 			resSql = iterSql.next();
-			// Parcours du tableau
 			for (PertinenceResult pertinenceResult : resultsList) {
-//				System.out.println("test");
-//				System.out.println(pertinenceResult.getName()+" --- " + resSql.get(infos.getKeyColumn()));
 				if (pertinenceResult.getName().equals(resSql.get(infos.getKeyColumn()))) {
 					mixedQueryResult.add(resSql);
-//					System.out.println("UIIIIII");
 				}
 			}
 		}
-		// tri de la liste
-//		return mixedQueryResult.iterator();
+		// Sorting the results of the mixed query according to their relevance
 		List<Map<String, Object>> sorted = resultsList.stream()
 	            .map(findLine(mixedQueryResult))
 	            .collect(Collectors.toList());
