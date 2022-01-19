@@ -38,6 +38,11 @@ public class TripRepository {
 		return toList(allTransports);
 	}
 	
+	public List<Site> findAllSites() {
+		Iterator<Site> allSites = siteDao.findAll();
+		return toList(allSites);
+	}
+	
 	public List<Site> findRelevantSites(String query) {
 		return siteDao.findByRelevance(query);
 	}
@@ -52,6 +57,7 @@ public class TripRepository {
 		return list;
 	}
 
+	// ======= GETTERS / SETTERS =======
 	public HotelDao getHotelDao() {
 		return hotelDao;
 	}

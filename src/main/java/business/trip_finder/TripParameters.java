@@ -3,21 +3,22 @@ package business.trip_finder;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import business.trip_finder.orderer.OrderingStrategyType;
 import business.trip_finder.rater.RatingStrategyType;
 
 public class TripParameters {
 
-	private BigDecimal minPrice;
+	private BigDecimal minPrice = BigDecimal.valueOf(1000.00);
 
-	private BigDecimal maxPrice;
+	private BigDecimal maxPrice = BigDecimal.valueOf(2000.00);
 
 	// nullable
-	private Double comfort;
+	private Double comfort = 2.5;
 
 	// can be empty ?
-	private String keywords;
+	private String keywords = "";
 
-	private Integer nbDays;
+	private Integer nbDays = 2;
 	
 	private String filterBy = "GLOBAL";
 
@@ -70,7 +71,7 @@ public class TripParameters {
 		
 		// filterBy value must correspond to any RatingStrategyType value
 		// This will throw an exception if it is not the case
-		RatingStrategyType value = RatingStrategyType.valueOf(filterBy);
+		OrderingStrategyType value = OrderingStrategyType.valueOf(filterBy);
 	}
 	
 	public BigDecimal getMinPrice() {
