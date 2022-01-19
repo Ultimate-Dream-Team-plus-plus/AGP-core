@@ -121,8 +121,7 @@ public class RequestImpl<E> implements RequestManager<E> {
 	public Iterator<Map<String, Object>> joinRequest(String request) {
 		
 		request = addKeyRequest(request);
-		System.out.println("REQUEST -> "+request);
-
+		
 		// Récupération des mots clef
 		String separatorSqlText = "with";
 		int posWith = request.indexOf(separatorSqlText);
