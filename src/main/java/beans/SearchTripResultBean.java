@@ -23,6 +23,10 @@ public class SearchTripResultBean {
 	public int indexOf(Trip trip) {
 		return tripEntryBean.getBestTrips().indexOf(trip);
 	}
+	
+	public int indexOf(Trip trip) {
+        return tripEntryBean.getBestTrips().indexOf(trip);
+    }
 
 	public TripEntryBean getTripEntryBean() {
 		return tripEntryBean;

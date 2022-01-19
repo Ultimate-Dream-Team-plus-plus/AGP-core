@@ -1,0 +1,43 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>AGP Dream team plus plus</title>
+</h:head>
+<h:body>
+	<h2>Trip informations</h2>
+	#{tripBean.defineTrip(param['index'])} <!-- search in the bestTrips list the choosen besTrip and define trip variable -->
+	<br />
+	<h:outputText value="#Total price: {tripBean.price}€"/>
+	<br />
+
+	<h:form>
+	
+		<!-- <ui:repeat value="#{tripBean.days}" var="day">
+			<h:panelGrid columns="2">
+				<h:outputText value="Price:#{day.price}€" />
+				<h:outputText value="Date:#{day.date}" />
+			</h:panelGrid>
+		</ui:repeat> -->
+		
+		<p:tabView rendered="#{not empty tripBean.days}" value="#{tripBean.days}" var="day">	
+				<p:tab title="Day#{day.date}">
+					<h:outputText value="#{day.price}€" />
+					<br/>
+					<h:outputText value="Hotel:" /> <!-- display hotel informations -->
+					
+					<!-- display excursion list -->
+					
+				</p:tab>
+		</p:tabView>
+
+	
+	</h:form>
+
+</h:body>
+
+</html>

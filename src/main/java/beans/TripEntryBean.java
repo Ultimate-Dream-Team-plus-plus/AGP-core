@@ -3,8 +3,10 @@ package beans;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import business.trip.Trip;
 import business.trip_finder.TripParameters;
@@ -15,7 +17,7 @@ import mocks.MockBestTripFinder;
 @ManagedBean
 @SessionScoped
 public class TripEntryBean {
-	private Exception error;
+	private String error="";
 	private List<Trip> bestTrips;
 	private TripParameters tripParameters = new TripParameters();
 	private BestTripFinder bestTripFinder=  new MockBestTripFinder();
@@ -29,19 +31,19 @@ public class TripEntryBean {
 		try {
 			tripParameters.validateParameters();
 		} catch (Exception e) {
-			setError(e);
-			return "error";
+			this.setError(e.getMessage());
+			return "index";
 		}
 		bestTrips = bestTripFinder.findBestTrips(tripParameters);
 		return "result";
 	}
 
 	
-	public Exception getError() {
+	public String getError() {
 		return error;
 	}
 
-	public void setError(Exception error) {
+	public void setError(String error) {
 		this.error = error;
 	}
 
@@ -117,5 +119,9 @@ public class TripEntryBean {
 		tripParameters.setFilterBy(filterBy);
 	}
 	
+	public void displayError() {
+		FacesContext context= FacesContext.getCurrentInstance();
+		context.addMessage(null,new FacesMessage(error));
+	}
 
 }
