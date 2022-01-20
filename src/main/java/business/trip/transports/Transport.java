@@ -58,5 +58,9 @@ public abstract class Transport {
 	public double getComfort() {
 		return comfort;
 	}
+	
+	public String toString() {
+		return name + " -- " + pricePerKm + " euros/km -- " + speed + " Km -- " + comfort + " Stars";
+	}
 
 }

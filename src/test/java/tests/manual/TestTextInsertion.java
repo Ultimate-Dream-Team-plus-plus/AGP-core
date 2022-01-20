@@ -3,11 +3,15 @@ package tests.manual;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-
 import business.spring.SpringIoC;
 import business.trip.places.Hotel;
+import business.trip.places.Site;
+import business.trip.transports.Transport;
 import dao.HotelDao;
+import dao.SiteDao;
+import dao.TransportDao;
 import persistence.apiBDe.database.DatabaseImpl;
 import persistence.apiBDe.request.JdbcConnection;
 import persistence.apiBDe.request.PertinenceResult;
@@ -17,6 +21,8 @@ import persistence.config.BdeConfig;
 import persistence.config.JdbcConfig;
 import persistence.config.LuceneConfig;
 import persistence.daoImpl.HotelDaoImpl;
+import persistence.daoImpl.SiteDaoImpl;
+import persistence.daoImpl.TransportDaoImpl;
 
 public class TestTextInsertion {
 
@@ -76,7 +82,40 @@ public class TestTextInsertion {
 			System.out.println(hotelIt2.next());
 		}
 		
+		System.out.println("--> Site tests:\n");
 		
+		SiteDao sitedao = SpringIoC.getBean(SiteDaoImpl.class);
+		
+		Iterator<Site> siteIt = sitedao.findAll();
+		while(siteIt.hasNext()) {
+			System.out.println(siteIt.next());
+		}
+		System.out.println("-----------\n");
+//		List<Site> sitelist = sitedao.findByRelevance("truc");
+//		for(Site site : sitelist) {
+//			System.out.println(site);
+//		}
+
+		System.out.println("--> Transport tests:\n");
+		
+		TransportDao transportdao = SpringIoC.getBean(TransportDaoImpl.class);
+
+		Iterator<Transport> transIt = transportdao.findAll();
+		while(transIt.hasNext()) {
+			System.out.println(transIt.next());
+		}
+		
+		System.out.println("-----------\n");
+		Iterator<Transport> transIt2 = transportdao.findAquaticTransports();
+		while(transIt2.hasNext()) {
+			System.out.println(transIt2.next());
+		}
+		
+		System.out.println("-----------\n");
+		Iterator<Transport> transIt3 = transportdao.findLandTransports();
+		while(transIt3.hasNext()) {
+			System.out.println(transIt3.next());
+		}
 		
 	}
 	

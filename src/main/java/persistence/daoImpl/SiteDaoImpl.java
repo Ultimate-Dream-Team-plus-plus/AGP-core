@@ -45,7 +45,7 @@ public class SiteDaoImpl implements SiteDao {
 
 	@Override
 	public List<Site> findByRelevance(String query) {
-		String request = "SELECT name, ST_X(position) as lat , ST_Y(position) as lon, price, isSeaSided, isintoSea, type from site with " + query;
+		String request = "SELECT name, ST_X(position) as lat , ST_Y(position) as lon, price, isSeaSided, isintoSea, type FROM site with " + query;
 		Iterator<Map<String, Object>> result = manager.request(request);
 
 		List<Site> siteList = new ArrayList<Site>();
@@ -60,7 +60,7 @@ public class SiteDaoImpl implements SiteDao {
 			boolean isIntoSea = (Boolean) elt.get("isIntoSea");
 
 			Site site = new Site(name, pos, price, isSeaSided, isIntoSea);
-
+			
 			siteList.add(site);
 		}
 		return siteList;

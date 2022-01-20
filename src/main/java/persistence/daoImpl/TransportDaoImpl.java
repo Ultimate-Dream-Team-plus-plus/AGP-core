@@ -34,15 +34,16 @@ public class TransportDaoImpl implements TransportDao{
 			Map<String, Object> elt = result.next();
 			String name = (String) elt.get("name");
 
-			BigDecimal price = (BigDecimal) elt.get("pricePerKm");
-			int speed = (int) elt.get("speed");
-			double comfort = (double) elt.get("comfort");
+			BigDecimal price = BigDecimal.valueOf((float) elt.get("pricePerKm"));
+			int speed = Math.round((float) elt.get("speed"));
+			float icomfort =  (float) elt.get("comfort");
+			double dcomfort = Double.valueOf(icomfort);
 			Transport transport = null;
 			if(name.contentEquals("boat")) {
-				transport = new AquaticTransport(name, price, speed, comfort);
+				transport = new AquaticTransport(name, price, speed, dcomfort);
 			}
 			else if(name.contentEquals("bus") || name.contentEquals("on foot")) {
-				transport = new LandTransport(name, price, speed, comfort);
+				transport = new LandTransport(name, price, speed, dcomfort);
 			}
 			
 
@@ -63,14 +64,16 @@ public class TransportDaoImpl implements TransportDao{
 			String name = (String) elt.get("name");
 
 			BigDecimal price =BigDecimal.valueOf((float)elt.get("pricePerKm"));
-			int speed = (int) elt.get("speed");
-			double comfort = (double) elt.get("comfort");
+			int speed = Math.round((float) elt.get("speed"));
+			float icomfort =  (float) elt.get("comfort");
+			double dcomfort = Double.valueOf(icomfort);
 			Transport transport = null;
 			if(name.contentEquals("boat")) {
-				transport = new AquaticTransport(name, price, speed, comfort);
+				transport = new AquaticTransport(name, price, speed, dcomfort);
+				transportList.add(transport);
+
 			}
 
-			transportList.add(transport);
 		}
 		return transportList.iterator();
 	}
@@ -87,15 +90,17 @@ public class TransportDaoImpl implements TransportDao{
 			String name = (String) elt.get("name");
 
 			BigDecimal price =BigDecimal.valueOf((float)elt.get("pricePerKm"));
-			int speed = (int) elt.get("speed");
-			double comfort = (double) elt.get("comfort");
+			int speed = Math.round((float) elt.get("speed"));
+			float icomfort =  (float) elt.get("comfort");
+			double dcomfort = Double.valueOf(icomfort);			
 			Transport transport = null;
 			if(name.contentEquals("bus") || name.contentEquals("on foot")) {
-				transport = new LandTransport(name, price, speed, comfort);
+				transport = new LandTransport(name, price, speed, dcomfort);
+				transportList.add(transport);
+
 			}
 			
 
-			transportList.add(transport);
 		}
 		return transportList.iterator();
 	}
