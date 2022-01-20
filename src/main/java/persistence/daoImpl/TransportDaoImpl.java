@@ -53,7 +53,7 @@ public class TransportDaoImpl implements TransportDao{
 
 	@Override
 	public Iterator<Transport> findAquaticTransports() {
-		String request = "SELECT name, pricePerKm, speed, comfort from transport WHERE";
+		String request = "SELECT name, pricePerKm, speed, comfort from transport";
 		Iterator<Map<String, Object>> result = manager.request(request);
 
 		List<Transport> transportList = new ArrayList<Transport>();

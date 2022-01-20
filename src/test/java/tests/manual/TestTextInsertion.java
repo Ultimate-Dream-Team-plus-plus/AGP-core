@@ -1,10 +1,12 @@
 package tests.manual;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import business.spring.SpringIoC;
+import business.trip.places.Hotel;
 import dao.HotelDao;
 import persistence.apiBDe.database.DatabaseImpl;
 import persistence.apiBDe.request.JdbcConnection;
@@ -48,7 +50,7 @@ public class TestTextInsertion {
 		}
 
 //		ResultIterator resIter =  req.sqlRequest("SELECT count(*) AS co FROM hotel");
-		Iterator<Map<String, Object>> resIter =  req.request("SELECT price FROM hotel with nul");
+		Iterator<Map<String, Object>> resIter =  req.request("SELECT name, price FROM hotel");
 		Map<String, Object> res = new HashMap<String, Object>();
 //		System.out.println(resIter.hasNext());
 		while(resIter.hasNext()) {
@@ -60,9 +62,22 @@ public class TestTextInsertion {
 		
 		System.out.println("----------------------------------------------------\n");
 		
-		HotelDao hoteldao = new HotelDaoImpl();
+		System.out.println("--> Hotel tests:\n");
 		
-		System.out.println(hoteldao.findAll());
+		HotelDao hoteldao = SpringIoC.getBean(HotelDaoImpl.class);
+		
+		Iterator<Hotel> hotelIt = hoteldao.findAll();
+		while(hotelIt.hasNext()) {
+			System.out.println(hotelIt.next());
+		}
+		System.out.println("-----------\n");
+		Iterator<Hotel> hotelIt2 = hoteldao.findWithMinimum(new BigDecimal(200));
+		while(hotelIt2.hasNext()) {
+			System.out.println(hotelIt2.next());
+		}
+		
+		
+		
 	}
 	
 	
