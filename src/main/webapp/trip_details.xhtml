@@ -18,7 +18,10 @@
 		<p:tabView rendered="#{not empty tripBean.days}"
 			value="#{tripBean.days}" var="day">
 			<p:tab title="Day#{day.date}">
-					Total price : #{day.price}€
+					Total price : 
+					<h:outputText value="#{day.price}">
+					<f:convertNumber pattern="#0.00" />
+				</h:outputText>€
 					<br />
 				<h2>First hotel : #{day.startHotel.name}</h2>
 				<!-- If we don't have any excursions, we must change something -->
@@ -51,7 +54,9 @@
 										#{excursion.departureHotel.name}
 										</h:outputLabel>
 										<h:outputLabel>
-										Price : #{excursion.departureHotel.price}€
+										Price<h:outputText value="#{excursion.departureHotel.price}">
+												<f:convertNumber pattern="#0.00" />
+											</h:outputText>€
 										</h:outputLabel>
 										<h:outputLabel value="#{excursion.departureHotel.comfort}">
 											<f:convertNumber pattern="Comfort : #0.00" />
@@ -59,10 +64,11 @@
 										<h:outputLabel>
 										Prestations :
 										<ul>
-										<ui:repeat value="#{excursion.departureHotel.prestations}" var="prestation">
-											<li>#{prestation.name}</li>
-										</ui:repeat>
-										</ul>
+												<ui:repeat value="#{excursion.departureHotel.prestations}"
+													var="prestation">
+													<li>#{prestation.name}</li>
+												</ui:repeat>
+											</ul>
 										</h:outputLabel>
 									</h:panelGrid>
 								</h:column>
@@ -75,7 +81,9 @@
 										#{excursion.arrivalHotel.name}
 										</h:outputLabel>
 										<h:outputLabel>
-										Price : #{excursion.arrivalHotel.price}€
+										Price<h:outputText value="#{excursion.arrivalHotel.price}">
+												<f:convertNumber pattern="#0.00" />
+											</h:outputText>€
 										</h:outputLabel>
 										<h:outputLabel value="#{excursion.arrivalHotel.comfort}">
 											<f:convertNumber pattern="Comfort : #0.00" />
@@ -83,10 +91,11 @@
 										<h:outputLabel>
 										Prestations :
 										<ul>
-										<ui:repeat value="#{excursion.arrivalHotel.prestations}" var="prestation">
-											<li>#{prestation.name}</li>
-										</ui:repeat>
-										</ul>
+												<ui:repeat value="#{excursion.arrivalHotel.prestations}"
+													var="prestation">
+													<li>#{prestation.name}</li>
+												</ui:repeat>
+											</ul>
 										</h:outputLabel>
 									</h:panelGrid>
 								</h:column>
@@ -113,6 +122,13 @@
 										<f:convertNumber pattern="#0.00" />
 									</h:outputLabel>
 									/ 5
+								</p>
+								<p>
+									<strong>Price</strong> :
+									<h:outputLabel value="#{ride.price}">
+										<f:convertNumber pattern="#0.00" />
+									</h:outputLabel>
+									€
 								</p>
 							</ui:repeat>
 						</ui:repeat>

@@ -30,7 +30,9 @@
 
 			<h:column>
 				<f:facet name="header">Total price</f:facet>
-				#{trip.price}€
+				<h:outputText value="#{trip.price}">
+					<f:convertNumber pattern="#0.00" />
+				</h:outputText>€
 			</h:column>
 
 			<h:column>
