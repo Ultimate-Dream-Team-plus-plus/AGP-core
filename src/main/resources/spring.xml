@@ -34,14 +34,13 @@
 	</bean>
 	
 	<!-- Business beans -->
-	<bean id="bestTripFinder" class="mocks.MockBestTripFinder"/>
-	<!--<bean id="bestTripFinder" class="business.trip_finder.best_trip_finder.BestTripFinderImpl">
+	<bean id="bestTripFinder" class="business.trip_finder.best_trip_finder.BestTripFinderImpl">
 		<property name="parametersTweaker" ref="parametersTweaker"/>
 		<property name="repository" ref="tripRepository"/>
 		<property name="builder" ref="tripBuilder"/>
 		<property name="filter" ref="tripFilter"/>
 		<property name="orderer" ref="tripOrderer"/>
-	</bean>-->
+	</bean>
 
 	<bean id="tripBuilder" class="business.trip_finder.builder.TripBuilderImpl">
 		<property name="pathFinder" ref="pathFinder"/>
@@ -52,7 +51,9 @@
 	<bean id="tripOrderer" class="business.trip_finder.orderer.TripOrdererImpl"/>
 	
 	<bean id="tripRepository" class="business.trip_finder.repository.TripRepository">
-		<!-- TODO -->
+		<property name="hotelDao" ref="hotelDao"/>
+		<property name="siteDao" ref="siteDao"/>
+		<property name="transportDao" ref="transportDao"/>
 	</bean>
 	
 	<bean id="parametersTweaker" class="business.trip_finder.best_trip_finder.ParametersTweaker"/>
@@ -60,5 +61,10 @@
 	<bean id="tripFilter" class="business.trip_finder.filter.TripFilterImpl"/>
 	
 	<!-- Dao beans -->
+	<bean id="hotelDao" class="persistence.daoImpl.HotelDaoImpl"/>
+	
+	<bean id="siteDao" class="persistence.daoImpl.SiteDaoImpl"/>
+	
+	<bean id="transportDao" class="persistence.daoImpl.TransportDaoImpl"/>
 	
 </beans>
