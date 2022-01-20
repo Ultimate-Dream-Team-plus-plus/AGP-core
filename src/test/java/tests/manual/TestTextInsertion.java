@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import business.spring.SpringIoC;
+import dao.HotelDao;
 import persistence.apiBDe.database.DatabaseImpl;
 import persistence.apiBDe.request.JdbcConnection;
 import persistence.apiBDe.request.PertinenceResult;
@@ -13,6 +14,7 @@ import persistence.apiBDe.request.ResultIterator;
 import persistence.config.BdeConfig;
 import persistence.config.JdbcConfig;
 import persistence.config.LuceneConfig;
+import persistence.daoImpl.HotelDaoImpl;
 
 public class TestTextInsertion {
 
@@ -37,7 +39,7 @@ public class TestTextInsertion {
 
 		impl.createIndex();
 		
-		RequestImpl<PertinenceResult> req = new RequestImpl<PertinenceResult>();
+		RequestImpl req = new RequestImpl();
 		
 		Iterator<PertinenceResult> iter =  req.textRequest("nul");
 		while(iter.hasNext()) {
@@ -55,5 +57,13 @@ public class TestTextInsertion {
 //			System.out.println("truc");
 		}
 
+		
+		System.out.println("----------------------------------------------------\n");
+		
+		HotelDao hoteldao = new HotelDaoImpl();
+		
+		System.out.println(hoteldao.findAll());
 	}
+	
+	
 }
