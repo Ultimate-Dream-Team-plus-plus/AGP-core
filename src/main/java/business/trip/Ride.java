@@ -67,7 +67,7 @@ public class Ride {
 	@Override
 	public String toString() {
 		return "\t\t\tRide [Departure: | " + departure.toString() + " | - Arrival: | " + arrival.toString() + " | - Transport: " + transport.getName() + " - Price: " + price.doubleValue()
-				+ "€ - " + BigDecimal.valueOf(distance).setScale(2, RoundingMode.UP) + "km - Comfort: " + BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + "]\n";
+				+ "ï¿½ - " + BigDecimal.valueOf(distance).setScale(2, RoundingMode.UP) + "km - Comfort: " + BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + "]\n";
 	}
 
 	

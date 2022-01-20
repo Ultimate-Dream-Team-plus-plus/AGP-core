@@ -30,10 +30,13 @@ public class Excursion {
 		this.rides = rides;
 		this.price = calculatePrice();
 
-		this.comfort = rides.stream()
+		double ridesComfort = rides.stream()
 				.mapToDouble(Ride::getComfort)
 				.average()
 				.orElseThrow(() -> new IllegalArgumentException("No ride to average from, should never happen..."));
+		
+		double sumComfort = ridesComfort + departureHotel.getComfort() + arrivalHotel.getComfort();
+		this.comfort = sumComfort / 3.0;
 
 		this.totalDistance = rides.stream()
 				.mapToDouble(Ride::getDistance)
@@ -78,7 +81,7 @@ public class Excursion {
 		StringBuilder sbRides = new StringBuilder();
 		rides.forEach(sbRides::append);
 		return "\n\t\tExcursion {Departure: " + departureHotel.getName() + " - Arrival: " + arrivalHotel.getName() + " - "
-		+ price.setScale(2, RoundingMode.UP) + "€ - Comfort: " + BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " 
+		+ price.setScale(2, RoundingMode.UP) + "ï¿½ - Comfort: " + BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " 
 		+ BigDecimal.valueOf(totalDistance).setScale(2, RoundingMode.UP) + "km - \n" + sbRides.toString()
 				+ "\t\t}\n\n";
 	}
