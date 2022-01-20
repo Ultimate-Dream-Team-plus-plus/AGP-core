@@ -8,25 +8,23 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import business.spring.SpringIoC;
 import business.trip.Trip;
 import business.trip_finder.TripParameters;
 import business.trip_finder.best_trip_finder.BestTripFinder;
-import mocks.MockBestTripFinder;
-
 
 @ManagedBean
 @SessionScoped
 public class TripEntryBean {
-	private String error="";
+
+	private String error = "";
 	private List<Trip> bestTrips;
 	private TripParameters tripParameters = new TripParameters();
-	private BestTripFinder bestTripFinder=  new MockBestTripFinder();
-	
+	private BestTripFinder bestTripFinder = SpringIoC.getBean(BestTripFinder.class);
 
-	
 	public TripEntryBean() {
 	}
-	
+
 	public String search() {
 		try {
 			tripParameters.validateParameters();
@@ -38,7 +36,6 @@ public class TripEntryBean {
 		return "result";
 	}
 
-	
 	public String getError() {
 		return error;
 	}
@@ -70,23 +67,23 @@ public class TripEntryBean {
 	public void setBestTripFinder(BestTripFinder bestTripFinder) {
 		this.bestTripFinder = bestTripFinder;
 	}
-	
+
 	public BigDecimal getMinPrice() {
 		return tripParameters.getMinPrice();
 	}
-	
+
 	public void setMinPrice(BigDecimal minPrice) {
 		tripParameters.setMinPrice(minPrice);
 	}
-	
+
 	public BigDecimal getMaxPrice() {
 		return tripParameters.getMaxPrice();
 	}
-	
+
 	public void setMaxPrice(BigDecimal maxPrice) {
 		tripParameters.setMaxPrice(maxPrice);
 	}
-	
+
 	public Double getComfort() {
 		return tripParameters.getComfort();
 	}
@@ -100,7 +97,8 @@ public class TripEntryBean {
 	}
 
 	public void setKeywords(String keywords) {
-		 tripParameters.setKeywords(keywords);;
+		tripParameters.setKeywords(keywords);
+		;
 	}
 
 	public Integer getNbDays() {
@@ -118,10 +116,10 @@ public class TripEntryBean {
 	public void setFilterBy(String filterBy) {
 		tripParameters.setFilterBy(filterBy);
 	}
-	
+
 	public void displayError() {
-		FacesContext context= FacesContext.getCurrentInstance();
-		context.addMessage(null,new FacesMessage(error));
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(error));
 	}
 
 }

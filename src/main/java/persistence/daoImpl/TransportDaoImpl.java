@@ -34,7 +34,7 @@ public class TransportDaoImpl implements TransportDao{
 			Map<String, Object> elt = result.next();
 			String name = (String) elt.get("name");
 
-			BigDecimal price = BigDecimal.valueOf((float) elt.get("pricePerKm"));
+			BigDecimal price = BigDecimal.valueOf((double) Float.parseFloat(elt.get("pricePerKm").toString()));
 			int speed = Math.round((float) elt.get("speed"));
 			float icomfort =  (float) elt.get("comfort");
 			double dcomfort = Double.valueOf(icomfort);

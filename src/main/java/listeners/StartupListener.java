@@ -6,6 +6,8 @@ import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
+import business.spring.SpringIoC;
+
 /**
  * On application startup, this class will create and fill the index, as well as
  * intializing database connection infos.
@@ -13,12 +15,13 @@ import javax.faces.event.SystemEventListener;
  * @author Aldric Vitali Silvestre
  */
 public class StartupListener implements SystemEventListener {
-
+	
 	@Override
 	public void processEvent(SystemEvent event) throws AbortProcessingException {
 		// 2 cases : post construct and pre destroy
 		if (event instanceof PostConstructApplicationEvent) {
-			System.out.println("Started !!");
+			DatabaseInitializer initializer = SpringIoC.getBean(DatabaseInitializer.class);
+			initializer.init();
 		}
 	}
 
