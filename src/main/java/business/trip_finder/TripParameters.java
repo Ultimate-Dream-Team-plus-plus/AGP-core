@@ -7,9 +7,11 @@ import business.trip_finder.orderer.OrderingStrategyType;
 
 public class TripParameters {
 
-	private static final BigDecimal MINIMUM_PRICE = BigDecimal.valueOf(500);
+	public static final BigDecimal MINIMUM_PRICE = BigDecimal.valueOf(500);
 	
-	private static final BigDecimal MAXIMUM_PRICE = BigDecimal.valueOf(5000);
+	public static final BigDecimal MAXIMUM_PRICE = BigDecimal.valueOf(5000);
+	
+	public static final int MAXIMUM_NB_DAYS = 10;
 	
 	private BigDecimal minPrice = BigDecimal.valueOf(1000.00);
 
@@ -140,4 +142,18 @@ public class TripParameters {
 	public void setFilterBy(String filterBy) {
 		this.filterBy = filterBy;
 	}
+
+	public static BigDecimal getMinimumPrice() {
+		return MINIMUM_PRICE;
+	}
+
+	public static BigDecimal getMaximumPrice() {
+		return MAXIMUM_PRICE;
+	}
+
+	public static int getMaximumNbDays() {
+		return MAXIMUM_NB_DAYS;
+	}
+	
+	
 }

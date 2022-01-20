@@ -21,7 +21,7 @@ public class TripEntryBean {
 	private List<Trip> bestTrips;
 	private TripParameters tripParameters = new TripParameters();
 	private BestTripFinder bestTripFinder = SpringIoC.getBean(BestTripFinder.class);
-
+	
 	public TripEntryBean() {
 	}
 
@@ -34,6 +34,19 @@ public class TripEntryBean {
 		}
 		bestTrips = bestTripFinder.findBestTrips(tripParameters);
 		return "result";
+	}
+	
+	public BigDecimal getMaximumPrice() {
+		return TripParameters.getMaximumPrice();
+	}
+
+	public BigDecimal getMinimumPrice() {
+		return TripParameters.getMinimumPrice();
+	}
+
+	
+	public int getMaximumNbDays() {
+		return TripParameters.getMaximumNbDays();
 	}
 
 	public String getError() {
