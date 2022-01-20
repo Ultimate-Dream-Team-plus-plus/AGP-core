@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import business.trip.Trip;
-import business.trip_finder.orderer.GlobalRatingTrip;
 import business.trip_finder.orderer.OrderingStrategy;
 
 public class GlobalStrategy implements OrderingStrategy{
@@ -21,7 +20,7 @@ public class GlobalStrategy implements OrderingStrategy{
 	@Override
 	public List<Trip> orderTrip(List<Trip> trips) {
 		/* GlobalRatingTrip contains : 1. a trip - 2. rate of the trip */
-		List<GlobalRatingTrip> ratedTrips = new ArrayList<GlobalRatingTrip>();
+		List<GlobalOrderingTrip> ratedTrips = new ArrayList<GlobalOrderingTrip>();
 		
 		double price, comfort, rate;
 		double maxPrice = trips.stream()
@@ -34,15 +33,15 @@ public class GlobalStrategy implements OrderingStrategy{
 			price = trip.getPrice().doubleValue();
 			comfort = trip.getComfort();
 			rate = (price / maxPrice) * RATIO_PRICE + (comfort / 5) * RATIO_COMFORT;
-			ratedTrips.add(new GlobalRatingTrip(rate, trip));
+			ratedTrips.add(new GlobalOrderingTrip(rate, trip));
 		}
 		
 		ratedTrips = ratedTrips.stream()
-				.sorted(Comparator.comparing(GlobalRatingTrip::getRate))
+				.sorted(Comparator.comparing(GlobalOrderingTrip::getRate))
 				.collect(Collectors.toList());
 		
 		List<Trip> orderedTrips = ratedTrips.stream() 
-				.map(GlobalRatingTrip::getTrip)
+				.map(GlobalOrderingTrip::getTrip)
 				.collect(Collectors.toList());
 		
 		return orderedTrips;
