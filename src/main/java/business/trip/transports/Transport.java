@@ -38,7 +38,8 @@ public abstract class Transport {
 	 * @return
 	 */
 	public double comfortOverDistance(double distance) {
-		return comfort - 3 * (distance / 80.0);
+		double c = comfort - 3 * (distance / 80.0);
+		return c > 0 ? c : 0.0;
 	}
 
 	public abstract boolean canCrossSea();
