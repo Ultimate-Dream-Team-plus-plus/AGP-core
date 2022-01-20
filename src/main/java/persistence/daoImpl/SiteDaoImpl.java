@@ -32,7 +32,7 @@ public class SiteDaoImpl implements SiteDao {
 			String name = (String) elt.get("name");
 
 			Position pos = new Position((double) elt.get("lat"), (double) elt.get("lon"));
-			BigDecimal price = (BigDecimal) elt.get("price");
+			BigDecimal price = BigDecimal.valueOf((float)elt.get("price"));
 			boolean isSeaSided = (Boolean) elt.get("isSeaSided");
 			boolean isIntoSea = (Boolean) elt.get("isIntoSea");
 
@@ -55,7 +55,7 @@ public class SiteDaoImpl implements SiteDao {
 			String name = (String) elt.get("name");
 
 			Position pos = new Position((double) elt.get("lat"), (double) elt.get("lon"));
-			BigDecimal price = (BigDecimal) elt.get("price");
+			BigDecimal price = BigDecimal.valueOf((float)elt.get("price"));
 			boolean isSeaSided = (Boolean) elt.get("isSeaSided");
 			boolean isIntoSea = (Boolean) elt.get("isIntoSea");
 

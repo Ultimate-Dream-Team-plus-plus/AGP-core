@@ -24,7 +24,7 @@ public class HotelDaoImpl implements HotelDao {
 
 	@Override
 	public Iterator<Hotel> findAll() {
-		String request = "SELECT name, ST_X(position) as lat , ST_Y(position) as lon, price, nbServices from hotel";
+		String request = "SELECT name, ST_X(position) as lat , ST_Y(position) as lon, price, nbServices FROM hotel";
 		Iterator<Map<String, Object>> result = manager.request(request);
 
 		List<Hotel> hotelList = new ArrayList<Hotel>();
@@ -33,7 +33,7 @@ public class HotelDaoImpl implements HotelDao {
 			Map<String, Object> elt = result.next();
 			String name = (String) elt.get("name");
 
-			String prestationRequest = "SELECT nameService FROM relHotelService WHERE nameHotel = " + name;
+			String prestationRequest = "SELECT nameService FROM relHotelService WHERE nameHotel = '" + name+ "'";
 			Iterator<Map<String, Object>> itService = manager.request(prestationRequest);
 			List<String> prestationList = new ArrayList<String>();
 			while (itService.hasNext()) {
@@ -47,7 +47,7 @@ public class HotelDaoImpl implements HotelDao {
 
 			Position pos = new Position((double) elt.get("lat"), (double) elt.get("lon"));
 
-			Hotel hotel = new Hotel(name, pos, (BigDecimal) elt.get("price"), prestationObjList);
+			Hotel hotel = new Hotel(name, pos, BigDecimal.valueOf((float)elt.get("price")) , prestationObjList);
 
 			hotelList.add(hotel);
 		}
@@ -65,7 +65,7 @@ public class HotelDaoImpl implements HotelDao {
 			Map<String, Object> elt = result.next();
 			String name = (String) elt.get("name");
 
-			String prestationRequest = "SELECT nameService FROM relHotelService WHERE nameHotel = " + name;
+			String prestationRequest = "SELECT nameService FROM relHotelService WHERE nameHotel = '" + name+ "'";
 			Iterator<Map<String, Object>> itService = manager.request(prestationRequest);
 			List<String> prestationList = new ArrayList<String>();
 			while (itService.hasNext()) {
@@ -79,7 +79,7 @@ public class HotelDaoImpl implements HotelDao {
 
 			Position pos = new Position((double) elt.get("lat"), (double) elt.get("lon"));
 
-			Hotel hotel = new Hotel(name, pos, (BigDecimal) elt.get("price"), prestationObjList);
+			Hotel hotel = new Hotel(name, pos, BigDecimal.valueOf((float)elt.get("price")), prestationObjList);
 
 			hotelList.add(hotel);
 		}
