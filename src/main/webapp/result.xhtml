@@ -12,26 +12,33 @@
 	<h2>Best trips for you</h2>
 
 	<h:form>
-		<h:dataTable value="#{searchTripResultBean.bestTrips}" var="trip">
+		<h:dataTable value="#{searchTripResultBean.bestTrips}" var="trip"
+			border="1" cellpadding="5">
 
 			<h:column>
-                    Number : #{searchTripResultBean.indexOf(trip)}
-                    <br />
-                    Comfort:#{trip.comfort}/5
+				<f:facet name="header">Trip index</f:facet>
+                    #{searchTripResultBean.indexOf(trip) + 1}
                     <!-- <p:rating value="#{trip.comfort}" /> -->
-
 			</h:column>
 
 			<h:column>
-				<h:outputText value="#{trip.price}€" />
-				<br />
+				<f:facet name="header">Comfort rate</f:facet>
+				<h:outputText value="#{trip.comfort}">
+					<f:convertNumber pattern="#0.00" />
+				</h:outputText> / 5
+			</h:column>
 
-				<h:link value="Voir" outcome="trip_details">
-					<f:param name="index" value="#{searchTripResultBean.indexOf(trip)}" /><!-- send index of the choosen trip in parameter -->
+			<h:column>
+				<f:facet name="header">Total price</f:facet>
+				#{trip.price}€
+			</h:column>
+
+			<h:column>
+				<h:link value="Details" outcome="trip_details">
+					<!-- send index of the choosen trip in parameter -->
+					<f:param name="index" value="#{searchTripResultBean.indexOf(trip)}" />
 				</h:link>
 			</h:column>
-
-
 
 		</h:dataTable>
 	</h:form>

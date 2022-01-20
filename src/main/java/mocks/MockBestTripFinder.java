@@ -10,6 +10,7 @@ import business.trip.Ride;
 import business.trip.Trip;
 import business.trip.places.Hotel;
 import business.trip.places.Position;
+import business.trip.places.Prestation;
 import business.trip.places.Site;
 import business.trip.transports.AquaticTransport;
 import business.trip.transports.LandTransport;
@@ -21,9 +22,10 @@ public class MockBestTripFinder implements BestTripFinder {
 	@Override
 	public List<Trip> findBestTrips(TripParameters parameters) {		
 		
+		Prestation pr = new Prestation("a");
 		
-		Hotel hotel1 = new Hotel("Hotel 1", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), List.of());
-		Hotel hotel2 = new Hotel("Hotel 2", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), List.of());
+		Hotel hotel1 = new Hotel("Hotel 1", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), List.of(pr, pr, pr, pr));
+		Hotel hotel2 = new Hotel("Hotel 2", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), List.of(pr, pr));
 		
 		Site site1 = new Site("Site 1", new Position(-17.6394, -149.4229), BigDecimal.valueOf(59.99), true, false);
 		LandTransport autobus = new LandTransport("Autobus", BigDecimal.valueOf(0.10), 50, 3.1);
@@ -37,6 +39,10 @@ public class MockBestTripFinder implements BestTripFinder {
 		);
 		
 		List<Excursion> excursions = List.of(
+					new Excursion(hotel1,hotel2,rides),
+					new Excursion(hotel2,hotel1,rides),
+					new Excursion(hotel1,hotel2,rides),
+					new Excursion(hotel1,hotel2,rides),
 					new Excursion(hotel1,hotel2,rides)
 				);
 		

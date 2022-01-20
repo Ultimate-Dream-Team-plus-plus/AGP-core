@@ -18,9 +18,7 @@ public class Day {
 		this.excursions = excursions;
 		this.startHotel = excursions.get(0).getDepartureHotel();
 		this.date = date;
-		this.comfort = excursions.stream()
-				.mapToDouble(Excursion::getComfort)
-				.sum();
+		this.comfort = calculateComfort();
 		this.price = excursions.stream()
 				.map(Excursion::getPrice)
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -35,6 +33,16 @@ public class Day {
 		this.date = date;
 		this.comfort = hotel.getComfort();
 		this.price = hotel.getPrice();
+	}
+	
+	private double calculateComfort() {
+		if (excursions.isEmpty()) {
+			return startHotel.getComfort();
+		}
+		return excursions.stream()
+				.mapToDouble(Excursion::getComfort)
+				.average()
+				.orElseThrow();
 	}
 
 	public List<Excursion> getExcursions() {
@@ -61,8 +69,8 @@ public class Day {
 	public String toString() {
 		StringBuilder sbExcursions = new StringBuilder();
 		excursions.forEach(sbExcursions::append);
-		return "\n\tDay n°" + date + " (Departure: " + startHotel.getName() + " - Comfort : "
-		+ BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " + price.setScale(2, RoundingMode.UP) + "€ - \n" + sbExcursions.toString() + "\t)\n";
+		return "\n\tDay nï¿½" + date + " (Departure: " + startHotel.getName() + " - Comfort : "
+		+ BigDecimal.valueOf(comfort).setScale(2, RoundingMode.UP) + " - " + price.setScale(2, RoundingMode.UP) + "ï¿½ - \n" + sbExcursions.toString() + "\t)\n";
 	}
 
 	

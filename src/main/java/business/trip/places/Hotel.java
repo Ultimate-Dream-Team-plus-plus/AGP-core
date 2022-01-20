@@ -9,9 +9,9 @@ public class Hotel extends Place {
 
 	private double comfort;
 	private int nbPrestation;
-	private List<String> prestations;
+	private List<Prestation> prestations;
 
-	public Hotel(String name, Position position, BigDecimal price, List<String> prestations) throws IllegalArgumentException {
+	public Hotel(String name, Position position, BigDecimal price, List<Prestation> prestations) throws IllegalArgumentException {
 		super(name, position, price, true, false);
 
 		this.nbPrestation = prestations.size();
@@ -41,7 +41,7 @@ public class Hotel extends Place {
 		return nbPrestation;
 	}
 
-	public List<String> getPrestations() {
+	public List<Prestation> getPrestations() {
 		return prestations;
 	}
 

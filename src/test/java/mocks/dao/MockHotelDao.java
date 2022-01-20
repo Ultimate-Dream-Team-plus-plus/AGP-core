@@ -25,23 +25,8 @@ public class MockHotelDao implements HotelDao {
 	}
 
 	@Override
-	public Iterator<Hotel> findWithMinimum(double minimumComfort) {
-		return hotels.stream()
-				.filter(withMinComfort(minimumComfort))
-				.iterator();
-	}
-
-	@Override
 	public Iterator<Hotel> findWithMinimum(BigDecimal minimumPrice) {
 		return hotels.stream()
-				.filter(withMinPrice(minimumPrice))
-				.iterator();
-	}
-
-	@Override
-	public Iterator<Hotel> findWithMinimum(BigDecimal minimumPrice, double minimumComfort) {
-		return hotels.stream()
-				.filter(withMinComfort(minimumComfort))
 				.filter(withMinPrice(minimumPrice))
 				.iterator();
 	}
