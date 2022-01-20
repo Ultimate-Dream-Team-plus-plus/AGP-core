@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @param <E>
  */
-public interface RequestManager<E> {
+public interface RequestManager {
 
 	/**
 	 * Execute an SQL Code and get the response as an Iterator

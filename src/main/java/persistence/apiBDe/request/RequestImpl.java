@@ -37,7 +37,7 @@ import persistence.apiBDe.database.DatabaseInfos;
  * @param <E>
  */
 
-public class RequestImpl<E> implements RequestManager<E> {
+public class RequestImpl implements RequestManager {
 
 	private DatabaseInfos infos = DatabaseInfos.getInstance();
 

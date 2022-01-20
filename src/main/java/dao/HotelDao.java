@@ -7,11 +7,8 @@ import business.trip.places.Hotel;
 
 public interface HotelDao {
 
-	Iterator<Hotel> findAll();
-	
-	Iterator<Hotel> findWithMinimum(double minimumComfort);
+	Iterator<Hotel> findAll();	
 	
 	Iterator<Hotel> findWithMinimum(BigDecimal minimumPrice);
 	
-	Iterator<Hotel> findWithMinimum(BigDecimal minimumPrice, double minimumComfort);
 }
