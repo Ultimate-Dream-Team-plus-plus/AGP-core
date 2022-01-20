@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import business.trip_finder.orderer.OrderingStrategyType;
-import business.trip_finder.rater.RatingStrategyType;
 
 public class TripParameters {
 

@@ -14,7 +14,7 @@
 		</property>
 	</bean>
 	
-	<!-- Config beans, injected into non spring-related classes -->
+	<!-- Config beans, to inject application.properties in non spring-related classes -->
 	<bean id="luceneConfig" class="persistence.config.LuceneConfig">
 		<property name="pathIndex" value="${lucene.index.path}"/>
 	</bean>
@@ -33,14 +33,32 @@
 		<property name="folder" value="${bde.folder.path}" />
 	</bean>
 	
+	<!-- Business beans -->
 	<bean id="bestTripFinder" class="mocks.MockBestTripFinder"/>
-
-	<!--bean id="jdbcInformations" class="persistence.jdbc.JdbcInformations">
-		<property name="databaseName" value="${jdbc.name}" />
-		<property name="port" value="${jdbc.port}" />
-		<property name="host" value="${jdbc.host}" />
-		<property name="username" value="${jdbc.user}" />
-		<property name="password" value="${jdbc.password}" />
+	<!--<bean id="bestTripFinder" class="business.trip_finder.best_trip_finder.BestTripFinderImpl">
+		<property name="parametersTweaker" ref="parametersTweaker"/>
+		<property name="repository" ref="tripRepository"/>
+		<property name="builder" ref="tripBuilder"/>
+		<property name="filter" ref="tripFilter"/>
+		<property name="orderer" ref="tripOrderer"/>
 	</bean>-->
 
+	<bean id="tripBuilder" class="buisiness.trip_finder.builder.TripBuilderImpl">
+		<property name="pathFinder" ref="pathFinder"/>
+	</bean>	
+
+	<bean id="pathFinder" class="buisiness.trip_finder.path_finder.BruteForcePathFinder"/>
+	
+	<bean id="tripOrderer" class="buisiness.trip_finder.orderer.TripOrdererImpl"/>
+	
+	<bean id="tripRepository" class="buisiness.trip_finder.repository.TripRepository">
+		<!-- TODO -->
+	</bean>
+	
+	<bean id="parametersTweaker" class="buisiness.trip_finder.best_trip_finder.ParametersTweaker"/>
+	
+	<bean id="tripFilter" class="buisiness.trip_finder.filter.TripFilterImpl"/>
+	
+	<!-- Dao beans -->
+	
 </beans>
