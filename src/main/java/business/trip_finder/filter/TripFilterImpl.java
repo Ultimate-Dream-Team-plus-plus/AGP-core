@@ -17,6 +17,8 @@ import business.util.PriceUtils;
 
 public class TripFilterImpl implements TripFilter {
 	
+	private static final int NB_BEACHES_TO_KEEP = 2;
+
 	private static Logger LOGGER = LoggerFactory.getLogger(TripFilterImpl.class);
 
 	private static final int PERCENTAGE_COSTS_HOTEL = 70;
@@ -28,6 +30,22 @@ public class TripFilterImpl implements TripFilter {
 		LOGGER.info("Filter " + placesUnion.getHotels().size() + " hotels and " + placesUnion.getSites().size() +" sites");
 		List<Hotel> hotels = findHotels(placesUnion, parameters);
 		List<Site> sites = findSites(placesUnion, parameters);
+		
+		if (sites.size() > 3) {
+			// we don't want all beaches to be there
+			List<Site> beaches = sites.stream()
+				.filter(s -> s.getName().toUpperCase().startsWith("BEACH"))
+				.collect(Collectors.toList());
+			List<Site> beachesToKeep = beaches.stream()
+				.unordered()
+				.limit(NB_BEACHES_TO_KEEP)
+				.collect(Collectors.toList());
+			
+			beaches.stream()
+				.filter(b -> !beachesToKeep.contains(b))
+				.forEach(sites::remove);
+		}
+		
 		LOGGER.info("Got " + hotels.size() + " hotels and " + sites.size() + " sites at the end");
 		return new PlacesUnion(hotels, sites);
 	}
