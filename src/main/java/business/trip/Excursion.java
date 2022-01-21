@@ -30,17 +30,22 @@ public class Excursion {
 		this.rides = rides;
 		this.price = calculatePrice();
 
+		this.comfort = calculateComfort();
+
+		this.totalDistance = rides.stream()
+				.mapToDouble(Ride::getDistance)
+				.sum();
+	}
+
+	private double calculateComfort() {
 		double ridesComfort = rides.stream()
 				.mapToDouble(Ride::getComfort)
 				.average()
 				.orElseThrow(() -> new IllegalArgumentException("No ride to average from, should never happen..."));
 		
-		double sumComfort = ridesComfort + departureHotel.getComfort() + arrivalHotel.getComfort();
-		this.comfort = sumComfort / 3.0;
-
-		this.totalDistance = rides.stream()
-				.mapToDouble(Ride::getDistance)
-				.sum();
+		double sumComfort = ridesComfort + departureHotel.getComfort() * 2 + arrivalHotel.getComfort() * 2;
+		double res = sumComfort / 5.0;
+		return res;
 	}
 
 	private BigDecimal calculatePrice() {

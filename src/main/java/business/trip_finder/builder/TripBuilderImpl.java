@@ -71,7 +71,9 @@ public class TripBuilderImpl implements TripBuilder {
 		Map<Boolean, List<Transport>> transportGroups = transports.stream()
 				.collect(Collectors.partitioningBy(Transport::canCrossSea));
 		aquaticTransports = transportGroups.get(true);
+		aquaticTransports.sort(Comparator.comparing(Transport::getComfort));
 		landTransports = transportGroups.get(false);
+		landTransports.sort(Comparator.comparing(Transport::getComfort));
 	}
 
 	// ==== DAYS ====
@@ -191,6 +193,10 @@ public class TripBuilderImpl implements TripBuilder {
 	private Transport findRightTransport(double wantedComfort, double distance, List<Transport> transportListUsed) {
 		// The choice is based on the comfort of the user, as we stated that transport
 		// cost is negligeable over hotels etc.
+		if (distance < 0.3) {
+			return transportListUsed.get(0);
+		}
+		
 		List<Double> comforts = transportListUsed.stream()
 				.map(t -> t.comfortOverDistance(distance))
 				.collect(Collectors.toList());

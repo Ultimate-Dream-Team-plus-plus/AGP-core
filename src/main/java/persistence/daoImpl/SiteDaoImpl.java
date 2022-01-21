@@ -45,6 +45,11 @@ public class SiteDaoImpl implements SiteDao {
 
 	@Override
 	public List<Site> findByRelevance(String query) {
+		if (query.isBlank()) {
+			List<Site> list = new ArrayList<>();
+			this.findAll().forEachRemaining(list::add);
+			return list;
+		}
 		String request = "SELECT name, ST_X(position) as lat , ST_Y(position) as lon, price, isSeaSided, isintoSea, type FROM site with " + query;
 		Iterator<Map<String, Object>> result = manager.request(request);
 

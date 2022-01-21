@@ -38,6 +38,11 @@ public class BestTripFinderImpl implements BestTripFinder {
 		// number of days of course)
 		int nbExcursions = calculateNbExcursions(parameters.getNbDays(), parameters.getComfort());
 		PlacesUnion placesUnion = fetchPlaces(parameters);
+		// We can have no result here !
+		if (placesUnion.getSites().isEmpty()) {
+			LOGGER.warn("No site found with given query !");
+			return List.of();
+		}
 		List<Transport> transports = repository.findAllTransports();
 
 		// For each trip created, we will tweak a little the initial parameters, so that

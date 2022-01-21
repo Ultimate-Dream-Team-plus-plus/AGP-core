@@ -36,7 +36,9 @@
 							<p:separator style="height:10px;" />
 							<h:panelGrid columns="2">
 								<h:column>
-									Price : #{excursion.price}€
+									<h:outputLabel value="#{excursion.price}">
+										<f:convertNumber pattern="Price : #0.00" />
+									</h:outputLabel>€
 								</h:column>
 								<h:column>
 									<h:outputLabel value="#{excursion.comfort}">
